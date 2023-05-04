@@ -36,7 +36,7 @@ public class RunnerClass
 		DataBase.getBuildingsList();
 		for(int i=0;i<pendingLeases.length;i++)
 		{
-			  
+			  System.out.println("-------------------------------------------------------------");
 			  company = pendingLeases[i][0];
 			  building = pendingLeases[i][1];
 			  leaseName = pendingLeases[i][2];
@@ -54,6 +54,8 @@ public class RunnerClass
 				catch(Exception e) {}
 				failedReason ="";
 				valuesUpdateStatus ="";
+				try
+				{
 			  if(PropertyWare.searchBuilding(company, building)==false)
 			  {
 				  if(PropertyWare.searchBuildingWithLeaseName(company, leaseName)==false)
@@ -89,7 +91,11 @@ public class RunnerClass
 				  String query = "Update Automation.InitialRentsUpdate Set Status='"+valuesUpdateStatus+"',CompletedDate =GetDate(),Notes = '"+failedReason+"',StartDate='"+PDFReader.startDate+"',EndDate='"+PDFReader.endDate+"',MonthlyRent='"+PDFReader.monthlyRent+"',PetRent='"+PDFReader.petRent+"' where building like '%"+building+"%'  and LeaseName like '"+leaseName+"'";
 				  DataBase.updateTable(query);
 			  }
-			  
+				}
+				catch(Exception e)
+				{
+					continue;
+				}
 		}
 		
 	}

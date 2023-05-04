@@ -42,6 +42,7 @@ public class PDFReader
 			{
 				if(PDFDataExtract.Alabama_format1.format1()==false)
 					return false;
+				PDFReader.verifyDates();
 				/*
 				if(PDFReader.verifyDates()==true)
 					return true;
@@ -59,6 +60,7 @@ public class PDFReader
 			     {
 				if(PDFDataExtract.Alabama_Format2.format2()==false)
 					return false;
+				PDFReader.verifyDates();
 				/*
 				if(PDFReader.verifyDates()==true)
 					return true;
@@ -84,12 +86,22 @@ public class PDFReader
     
     public static boolean verifyDates() throws Exception
     {
+    	try
+    	{
     	startDate = CommonMethods.convertDate(commencementDate);
     	endDate = CommonMethods.convertDate(expirationDate);
-    	currentDate = CommonMethods.getCurrentDate();
-    	if(CommonMethods.compareDates(startDate,endDate, currentDate)==true)
     	return true;
-    	else return false;
+    	}
+    	catch(Exception e)
+    	{
+    		startDate = "";
+    		endDate = "";
+    	return false;
+    	}
+    	//currentDate = CommonMethods.getCurrentDate();
+    	//if(CommonMethods.compareDates(startDate,endDate, currentDate)==true)
+    	//return true;
+    	//else return false;
     }
     
     public static String decidePDFFormat(String company) throws Exception

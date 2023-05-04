@@ -28,7 +28,7 @@ public class Alabama_Format2
 	    text = text.trim().replaceAll(" +", " ");
 	    text = text.toLowerCase();
 	    //System.out.println(text);
-	    System.out.println("------------------------------------------------------------------");
+	    //System.out.println("------------------------------------------------------------------");
 	    
 	    try
 	    {
