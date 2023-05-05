@@ -6,6 +6,8 @@ import java.io.FileInputStream;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 
+import PDFAppConfig.PDFFormatDecider;
+
 public class PDFReader 
 {
 	public static String commencementDate ="";
@@ -77,6 +79,32 @@ public class PDFReader
 				return false;
 			    }
 			    
+			break;
+			
+		case "Arkansas":
+			String pdfFormatType_Arkansas = PDFReader.decidePDFFormat(market);
+			System.out.println("PDF Format Type = "+pdfFormatType_Arkansas);
+			if(pdfFormatType_Arkansas=="Format1")
+			{
+				if(PDFDataExtract.Arkansas_Format1.format1()==false)
+					return false;
+				PDFReader.verifyDates();
+						
+			}
+			
+			else 
+				if(pdfFormatType_Arkansas=="Format2")
+			     {
+				if(PDFDataExtract.Arkansas_Format2.format2()==false)
+					return false;
+				PDFReader.verifyDates();
+		        }
+			    else 
+			   {
+				RunnerClass.failedReason = RunnerClass.failedReason+","+ "Wrong PDF Format";
+				return false;
+			    }
+			    
 			//break;
 		}
         
@@ -113,8 +141,13 @@ public class PDFReader
 		switch(company)
 		{
 		case "Alabama":
-		    format1Text  = PDFAppConfig.PDFFormatDecider.alabama_Format1;
-		    format2Text  = PDFAppConfig.PDFFormatDecider.alabama_Format2;
+		    format1Text  = PDFAppConfig.PDFFormatDecider.Alabama_Format1;
+		    format2Text  = PDFAppConfig.PDFFormatDecider.Alabama_Format2;
+		break;
+		
+		case "Arkansas":
+		    format1Text  = PDFAppConfig.PDFFormatDecider.Arkansas_Format1;
+		    format2Text  = PDFAppConfig.PDFFormatDecider.Arkansas_Format2;
 		break;
 		
 		case "Austin":
@@ -167,7 +200,8 @@ public class PDFReader
 		text = new PDFTextStripper().getText(document);
 		text = text.replaceAll(System.lineSeparator(), " ");
 	    text = text.replaceAll(" +", " ");
-	    if(text.contains(format1Text))
+	    text = text.toLowerCase();
+	    if(text.contains(format1Text.toLowerCase())||text.contains(PDFFormatDecider.format1.toLowerCase())||text.contains(PDFFormatDecider.format1_2.toLowerCase()))
 	    {
 	    	PDFFormatType = "Format1";
 	    	System.out.println("PDF Format Type = "+PDFFormatType);
