@@ -38,7 +38,24 @@ public class PropertyWare
 		WebDriverManager.chromedriver().setup();
         RunnerClass.driver= new ChromeDriver(options);
         RunnerClass.driver.manage().window().maximize();
-        RunnerClass.driver.get(AppConfig.URL);
+        
+        if(PropertyWare.signIn()==true)
+        	return true;
+        else return false;
+		}
+		catch(Exception e)
+		{
+			System.out.println("Login failed");
+		    RunnerClass.failedReason = RunnerClass.failedReason+","+ "Login failed";
+			return false;
+		}
+	}
+	
+	public static boolean signIn()
+	{
+		try
+		{
+		RunnerClass.driver.get(AppConfig.URL);
         RunnerClass.driver.findElement(Locators.userName).sendKeys(AppConfig.username); 
         RunnerClass.driver.findElement(Locators.password).sendKeys(AppConfig.password);
         RunnerClass.driver.findElement(Locators.signMeIn).click();
@@ -68,17 +85,20 @@ public class PropertyWare
 		}
 	}
 	
-	public static boolean searchBuilding(String company, String building)
+	public static boolean searchBuilding(String company, String building) throws Exception
 	{
-		RunnerClass.wait = new WebDriverWait(RunnerClass.driver, Duration.ofSeconds(300));
-		RunnerClass.driver.navigate().refresh();
+		RunnerClass.wait = new WebDriverWait(RunnerClass.driver, Duration.ofSeconds(10));
+		RunnerClass.driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+		//Thread.sleep(3000);
 		PropertyWare.popUpHandling();
-		RunnerClass.js.executeScript("window.scrollBy(document.body.scrollHeight,0)");
+		RunnerClass.js.executeScript("window.scrollBy(0, -document.body.scrollHeight)");
+		RunnerClass.driver.navigate().refresh();
 		try
 		{
-	    RunnerClass.driver.findElement(Locators.dashboardsTab).click();
+	    //RunnerClass.driver.findElement(Locators.dashboardsTab).click();
 		RunnerClass.driver.findElement(Locators.searchbox).clear();
 		RunnerClass.driver.findElement(Locators.searchbox).sendKeys(building);
+		RunnerClass.wait = new WebDriverWait(RunnerClass.driver, Duration.ofSeconds(300));
 			try
 			{
 			RunnerClass.wait.until(ExpectedConditions.invisibilityOf(RunnerClass.driver.findElement(Locators.searchingLoader)));
@@ -137,7 +157,12 @@ public class PropertyWare
 					else 
 						building = RunnerClass.completeBuildingAbbreviation.substring(RunnerClass.completeBuildingAbbreviation.indexOf("(")+1,RunnerClass.completeBuildingAbbreviation.indexOf(")"));
 					
-				  PropertyWare.searchingBuildingWithDifferentText(building);
+				 if( PropertyWare.searchingBuildingWithDifferentText(building)==false)
+				 {
+					 System.out.println("Building Not Found");
+			         RunnerClass.failedReason =  RunnerClass.failedReason+","+ "Building Not Found";
+				     return false;
+				 }
 				 }
 				 catch(Exception e)
 				 {
@@ -227,15 +252,34 @@ public class PropertyWare
 		    RunnerClass.failedReason =  RunnerClass.failedReason+","+  "Unable to Click Lease Onwer Name";
 			return false;
 		}
-		
+		try
+		{
 		//pop up
 		PropertyWare.popUpHandling();
+		
+		// Get LeaseIDNumber 
+		try
+		{
+			RunnerClass.leaseIDNumber = RunnerClass.driver.findElement(Locators.leaseIDNumber).getText();
+		}
+		catch(Exception e)
+		{
+			RunnerClass.leaseIDNumber = "";
+		}
+		System.out.println("Lease ID Number = "+RunnerClass.leaseIDNumber);
 		
 		RunnerClass.driver.manage().timeouts().implicitlyWait(15,TimeUnit.SECONDS);
         RunnerClass.wait = new WebDriverWait(RunnerClass.driver, Duration.ofSeconds(15));
 		RunnerClass.js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
 		
 		RunnerClass.driver.findElement(Locators.notesAndDocs).click();
+		}
+		catch(Exception e)
+		{
+			System.out.println("Unable to Click Notes and Docs");
+		    RunnerClass.failedReason =  RunnerClass.failedReason+","+  "Unable to Click Notes and Docs";
+			return false;
+		}
 		/*
 		RunnerClass.driver.manage().timeouts().implicitlyWait(2,TimeUnit.SECONDS);
         RunnerClass.wait = new WebDriverWait(RunnerClass.driver, Duration.ofSeconds(2));
@@ -261,7 +305,7 @@ public class PropertyWare
 		{
 			for(int j=0;j<AppConfig.LeaseAgreementFileNames.length;j++)
 			{
-			 if(documents.get(i).getText().startsWith(AppConfig.LeaseAgreementFileNames[j])&&!documents.get(i).getText().contains("Termination")&&!documents.get(i).getText().contains("_Mod"))//&&documents.get(i).getText().contains(AppConfig.getCompanyCode(RunnerClass.company)))
+			 if(documents.get(i).getText().startsWith(AppConfig.LeaseAgreementFileNames[j])&&!documents.get(i).getText().contains("Termination")&&!documents.get(i).getText().contains("_Mod")&&!documents.get(i).getText().contains("_MOD"))//&&documents.get(i).getText().contains(AppConfig.getCompanyCode(RunnerClass.company)))
 			 {
 			 	documents.get(i).click();
 			 	fileName = documents.get(i).getText();
@@ -276,8 +320,8 @@ public class PropertyWare
 		
 		if(checkLeaseAgreementAvailable==false)
 		{
-			System.out.println("Unable to download Lease Agreement");
-		    RunnerClass.failedReason =  RunnerClass.failedReason+","+ "Unable to download Lease Agreement";
+			System.out.println("Lease Agreement is not available");
+		    RunnerClass.failedReason =  RunnerClass.failedReason+","+ "Lease Agreement is not available";
 			return false;
 		}
 		Thread.sleep(5000);
@@ -375,7 +419,7 @@ public class PropertyWare
 		 }
 		 catch(Exception e3) {}
 		 
-		 RunnerClass.driver.manage().timeouts().implicitlyWait(100,TimeUnit.SECONDS);
+		 RunnerClass.driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
 			Thread.sleep(1000);
 		// Select Lease from multiple leases
 			List<WebElement> displayedCompanies =null;
@@ -387,6 +431,7 @@ public class PropertyWare
 			{
 				
 			}
+			boolean checkCompanyAvailability = false;
 				boolean leaseSelected = false;
 				for(int i =0;i<displayedCompanies.size();i++)
 				{
@@ -395,9 +440,16 @@ public class PropertyWare
 					{
 						RunnerClass.driver.findElement(Locators.advancedSearch).click();
 						RunnerClass.driver.findElement(Locators.advancedSearch_building).click();
+						checkCompanyAvailability = true;
 						break;
 					}
 				}
+      			if(checkCompanyAvailability ==false)
+      			{
+      				System.out.println("Building Not Found");
+      		        RunnerClass.failedReason =  RunnerClass.failedReason+","+ "Building Not Found";
+      			    return false;
+      			}
 		 
 		 }
 		 catch(Exception e)
@@ -407,6 +459,26 @@ public class PropertyWare
 	     return false;
 		 }
 		return true;
+	}
+	
+	public static boolean checkIfSiteIsDown()
+	{
+		
+		try
+		{
+		RunnerClass.driver.manage().timeouts().implicitlyWait(2,TimeUnit.SECONDS);
+		if(RunnerClass.driver.findElement(Locators.PWSiteDownMessage).isDisplayed())
+		{
+			PropertyWare.signIn();
+			return true;
+		}
+		else
+			return false;
+		}
+		catch(Exception e)
+		{
+			return false;
+		}
 	}
 
 

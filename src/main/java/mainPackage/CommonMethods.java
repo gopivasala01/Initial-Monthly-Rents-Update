@@ -57,7 +57,7 @@ public class CommonMethods
             listOfFiles = new File(folderName).listFiles();
             for (File file : listOfFiles) {
                 String fileName = file.getName().toLowerCase();
-                if (fileName.contains(fileText.toLowerCase())&& fileName.contains(fileExtension.toLowerCase())) {
+                if (fileName.contains(fileExtension.toLowerCase())) { //&&  fileName.toLowerCase().contains(fileText.toLowerCase())
                     fileDownloaded = true;
                     filePath = file.getAbsolutePath();
                     break;
@@ -71,6 +71,7 @@ public class CommonMethods
 		}
 		catch(Exception e)
 		{
+			e.printStackTrace();
 			return "";
 		}
     }
@@ -258,4 +259,5 @@ public class CommonMethods
 	    		return false;
 	    	}
 	    }
+	    
 }

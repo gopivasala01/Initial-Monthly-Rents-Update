@@ -13,7 +13,9 @@ public class PDFReader
 	public static String commencementDate ="";
     public static String expirationDate ="";
     public static String monthlyRent="";
+    public static String monthlyRentFromPW="";
     public static String petRent="";
+    public static String petRentFromPW="";
     public static boolean petFlag = false;
     public static String PDFFormatType = "";
     public static String startDate = "";
@@ -33,7 +35,8 @@ public class PDFReader
         endDate = "";
         currentDate = "";
         text = "";
-        
+        monthlyRentFromPW="";
+        petRentFromPW="";
         
         switch(market)
 		{
@@ -91,7 +94,6 @@ public class PDFReader
 				PDFReader.verifyDates();
 						
 			}
-			
 			else 
 				if(pdfFormatType_Arkansas=="Format2")
 			     {
@@ -104,8 +106,31 @@ public class PDFReader
 				RunnerClass.failedReason = RunnerClass.failedReason+","+ "Wrong PDF Format";
 				return false;
 			    }
-			    
-			//break;
+			break;
+			
+		case "Austin":
+			String pdfFormatType_Austin = PDFReader.decidePDFFormat(market);
+			System.out.println("PDF Format Type = "+pdfFormatType_Austin);
+			if(pdfFormatType_Austin=="Format1")
+			{
+				if(PDFDataExtract.Austin_Format1.format1()==false)
+					return false;
+				PDFReader.verifyDates();
+						
+			}
+			else 
+				if(pdfFormatType_Austin=="Format2")
+			     {
+				if(PDFDataExtract.Austin_Format2.format2()==false)
+					return false;
+				PDFReader.verifyDates();
+		        }
+			    else 
+			   {
+				RunnerClass.failedReason = RunnerClass.failedReason+","+ "Wrong PDF Format";
+				return false;
+			    }
+			break;
 		}
         
         return true;
@@ -191,8 +216,8 @@ public class PDFReader
 		}
 		
 		File file = CommonMethods.getLastModified();
-		if(!file.toString().contains(RunnerClass.leaseAgreementName))
-			return "Error";
+		//if(!file.toString().contains(RunnerClass.leaseAgreementName))
+			//return "Error";
 		//File file = new File("C:\\SantoshMurthyP\\Lease Audit Automation\\Full_Lease_-_[6128_Creekview_Court]_-_[Wallace_-_Crawford]_-_[02.01.2023]_-_[04.30.2024].PDF_(1).pdf");
 		System.out.println(file);
 		FileInputStream fis = new FileInputStream(file);

@@ -14,6 +14,7 @@ public class RunnerClass
 	public static String building = "";
 	public static String completeBuildingAbbreviation = "";
 	public static String leaseName = "";
+	public static String leaseIDNumber = "";
 	public static ChromeDriver driver;
 	
 	public static Actions actions;
@@ -26,15 +27,18 @@ public class RunnerClass
 	public static String valuesUpdateStatus ="";
 	public static String leaseAgreementName = "";
 	
+	public static String[][] completedLeasesList;
+	
 	public static String[][] pendingLeases; 
 	public static void main(String args[]) throws Exception
 	{
+		
 		// Login to PropertyWare
 		PropertyWare.login();
 		
 		//Get Leases
 		DataBase.getBuildingsList();
-		for(int i=0;i<pendingLeases.length;i++)
+		for(int i=0;i<pendingLeases.length;i++)  //
 		{
 			  System.out.println("-------------------------------------------------------------");
 			  company = pendingLeases[i][0];
@@ -54,12 +58,25 @@ public class RunnerClass
 				catch(Exception e) {}
 				failedReason ="";
 				valuesUpdateStatus ="";
+				leaseIDNumber = "";
 				try
 				{
 			  if(PropertyWare.searchBuilding(company, building)==false)
 			  {
+				  if(PropertyWare.checkIfSiteIsDown()==true)
+				  {
+					  continue;
+					 // MailActivities.sendANoteToDeveloper();
+					 // break;
+				  }
 				  if(PropertyWare.searchBuildingWithLeaseName(company, leaseName)==false)
 				  {
+					  if(PropertyWare.checkIfSiteIsDown()==true)
+					  {
+						  continue;
+						 // MailActivities.sendANoteToDeveloper();
+						 // break;
+					  }
 					  String query = "Update Automation.InitialRentsUpdate Set Status='Failed',CompletedDate =GetDate(),Notes = 'Building Not Found' where building like '%"+building+"%' and LeaseName like '"+leaseName+"'";
 					  DataBase.updateTable(query);
 					  continue;
@@ -68,35 +85,53 @@ public class RunnerClass
 			  
 			  if(PropertyWare.downloadLeaseAgreement(building, leaseName)==false)
 			  {
-				  String query = "Update Automation.InitialRentsUpdate Set Status='Failed',CompletedDate =GetDate(),Notes = '"+failedReason+"' where building like '%"+building+"%' and LeaseName like '"+leaseName+"'";
+				  if(PropertyWare.checkIfSiteIsDown()==true)
+				  {
+					  continue;
+					 // MailActivities.sendANoteToDeveloper();
+					 // break;
+				  }
+				  String query = "Update Automation.InitialRentsUpdate Set Status='Failed',CompletedDate =GetDate(),Notes = '"+failedReason+"',LeaseIDNumber = '"+RunnerClass.leaseIDNumber+"' where building like '%"+building+"%' and LeaseName like '"+leaseName+"'";
 				  DataBase.updateTable(query);
 				  continue;
 			  }
 			  
 			  if(PDFReader.readPDFPerMarket(company)==false)
 			  {
-				  String query = "Update Automation.InitialRentsUpdate Set Status='Failed',CompletedDate =GetDate(),Notes = '"+failedReason+"' where building like '%"+building+"%'  and LeaseName like '"+leaseName+"'";
+				  String query = "Update Automation.InitialRentsUpdate Set Status='Failed',CompletedDate =GetDate(),Notes = '"+failedReason+"',LeaseIDNumber = '"+RunnerClass.leaseIDNumber+"' where building like '%"+building+"%'  and LeaseName like '"+leaseName+"'";
 				  DataBase.updateTable(query);
 				  continue;
 			  }
 			  
 			  if(InsertDataInPropertyWare.updateValuesInPW()==false)
 			  {
-				  String query = "Update Automation.InitialRentsUpdate Set Status='Failed',CompletedDate =GetDate(),Notes = 'Could not Update Values',StartDate='"+PDFReader.startDate+"',EndDate='"+PDFReader.endDate+"',MonthlyRent='"+PDFReader.monthlyRent+"',PetRent='"+PDFReader.petRent+"' where building like '%"+building+"%'  and LeaseName like '"+leaseName+"'";
+				  if(PropertyWare.checkIfSiteIsDown()==true)
+				  {
+					  continue;
+					 // MailActivities.sendANoteToDeveloper();
+					 // break;
+				  }
+				  String query = "Update Automation.InitialRentsUpdate Set Status='Failed',CompletedDate =GetDate(),Notes = 'Could not Update Values',StartDate='"+PDFReader.startDate+"',EndDate='"+PDFReader.endDate+"',MonthlyRent='"+PDFReader.monthlyRent+"',MonthlyRentFromPW='"+PDFReader.monthlyRentFromPW+"',PetRent='"+PDFReader.petRent+"',PetRentFromPW = '"+PDFReader.petRentFromPW+"',LeaseIDNumber = '"+RunnerClass.leaseIDNumber+"' where building like '%"+building+"%'  and LeaseName like '"+leaseName+"'";
 				  DataBase.updateTable(query);
 				  continue;
 			  }
 			  else
 			  {
-				  String query = "Update Automation.InitialRentsUpdate Set Status='"+valuesUpdateStatus+"',CompletedDate =GetDate(),Notes = '"+failedReason+"',StartDate='"+PDFReader.startDate+"',EndDate='"+PDFReader.endDate+"',MonthlyRent='"+PDFReader.monthlyRent+"',PetRent='"+PDFReader.petRent+"' where building like '%"+building+"%'  and LeaseName like '"+leaseName+"'";
+				  String query = "Update Automation.InitialRentsUpdate Set Status='"+valuesUpdateStatus+"',CompletedDate =GetDate(),Notes = '"+failedReason+"',StartDate='"+PDFReader.startDate+"',EndDate='"+PDFReader.endDate+"',MonthlyRent='"+PDFReader.monthlyRent+"',MonthlyRentFromPW='"+PDFReader.monthlyRentFromPW+"',PetRent='"+PDFReader.petRent+"',PetRentFromPW = '"+PDFReader.petRentFromPW+"',LeaseIDNumber = '"+RunnerClass.leaseIDNumber+"' where building like '%"+building+"%'  and LeaseName like '"+leaseName+"'";
 				  DataBase.updateTable(query);
 			  }
+			  
 				}
 				catch(Exception e)
 				{
 					continue;
 				}
 		}
+		
+		
+		//Create Excel file
+		 MailActivities.createExcelFileWithProcessedData();
+		
 		
 	}
 

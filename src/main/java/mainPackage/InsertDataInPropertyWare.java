@@ -1,14 +1,57 @@
 package mainPackage;
 
+import org.openqa.selenium.Keys;
+
 public class InsertDataInPropertyWare 
 {
 	public static boolean updateValuesInPW()
 	{
 		RunnerClass.driver.navigate().refresh();
-		RunnerClass.js.executeScript("window.scrollBy(document.body.scrollHeight,0)");
+		PropertyWare.popUpHandling();
+		RunnerClass.js.executeScript("window.scrollBy(0,-document.body.scrollHeight)");
 		try
 		{
+		
 		RunnerClass.driver.findElement(Locators.summaryEditButton).click();
+		
+		//Base Rent
+		try
+		{
+			RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.baseRent)).build().perform();
+		    RunnerClass.driver.findElement(Locators.baseRent).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+		    RunnerClass.driver.findElement(Locators.baseRent).sendKeys(PDFReader.monthlyRent.replaceAll("[^0-9.]", ""));
+		}
+		catch(Exception e)
+		{
+			RunnerClass.failedReason = "Issue -Base Rent";
+			RunnerClass.valuesUpdateStatus = "Review";
+		}
+		
+		//Initial Monthly rent from PW
+		try
+		{
+			RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.initialMonthlyRent)).build().perform();
+		    PDFReader.monthlyRentFromPW= RunnerClass.driver.findElement(Locators.initialMonthlyRent).getAttribute("Value").replace("$", "").trim();
+		}
+		catch(Exception e)
+		{
+			RunnerClass.failedReason = "Issue -Initial Monthly Rent";
+			PDFReader.monthlyRentFromPW= "Error";
+		}
+		//Initial Monthly rent from PW
+		try
+		{
+			RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.initialPetRentAmount)).build().perform();
+		    PDFReader.petRentFromPW= RunnerClass.driver.findElement(Locators.initialPetRentAmount).getAttribute("Value").replace("$", "").trim();
+		}
+		catch(Exception e)
+		{
+			RunnerClass.failedReason = "Issue -Initial Pet Rent";
+			PDFReader.petRentFromPW= "Error";
+		}
+		
+		/*
+		
 		 //Initial Monthly Rent
 		try
 		{
@@ -55,6 +98,7 @@ public class InsertDataInPropertyWare
 			}
 		}
 		
+		*/
 		//Save info
 		if(AppConfig.saveButtonOnAndOff==false)
 		{

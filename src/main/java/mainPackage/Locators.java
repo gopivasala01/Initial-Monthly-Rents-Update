@@ -41,5 +41,9 @@ public class Locators
     
     public static By saveLease = By.xpath("(//*[@class='primaryButtons'])[2]/input[1]");
     public static By cancelLease = By.xpath("(//*[@class='primaryButtons'])[2]/input[2]");
+    
+    public static By PWSiteDownMessage = By.xpath("//*[text()='This issue has been logged.']");
+    public static By leaseIDNumber = By.xpath("//*[text()='ID Number']/following-sibling::td[1]");
+    public static By baseRent = By.xpath("//*[text()='Base Rent']/following::input[1]");
 
 }
