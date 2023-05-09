@@ -32,7 +32,7 @@ public class RunnerClass
 	public static String[][] pendingLeases; 
 	public static void main(String args[]) throws Exception
 	{
-		
+		/*
 		// Login to PropertyWare
 		PropertyWare.login();
 		
@@ -127,7 +127,7 @@ public class RunnerClass
 					continue;
 				}
 		}
-		
+		*/
 		
 		//Create Excel file
 		 MailActivities.createExcelFileWithProcessedData();

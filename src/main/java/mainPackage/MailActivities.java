@@ -146,6 +146,8 @@ public class MailActivities
 			{  
 			filename = AppConfig.excelFileLocation+"\\InitialRentsUpdate_"+date+".xlsx";  
 			File file = new File(filename);
+			if(!file.exists())
+				file.mkdirs();
 			//if file exists, delete and re create it
 			if(file.exists())
 			{
@@ -164,8 +166,8 @@ public class MailActivities
 			header.createCell(7).setCellValue("Monthly Rent From Property Ware");
 			header.createCell(8).setCellValue("Pet Rent From Lease Agreement");
 			header.createCell(9).setCellValue("Pet Rent From Property Ware");
-			header.createCell(9).setCellValue("Status");
-			header.createCell(9).setCellValue("Notes");
+			header.createCell(10).setCellValue("Status");
+			header.createCell(11).setCellValue("Notes");
 			//int totalCurrentDayBuildings = RunnerClass.successBuildings.size()+RunnerClass.failedBuildings.size();
 			//sheet1.createRow(sheet1.getLastRowNum()+totalCurrentDayBuildings);
 			boolean getBuildings =  DataBase.getCompletedBuildingsList();

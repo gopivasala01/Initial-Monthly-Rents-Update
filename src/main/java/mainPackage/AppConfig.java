@@ -17,7 +17,7 @@ public class AppConfig
 	   public static String toEmail = "gopi.v@beetlerim.com";
 	   public static String CCEmail = "gopi.v@beetlerim.com";
 	   
-	   public static String mailSubject = "Initial Rents Update Update for  ";
+	   public static String mailSubject = "Initial Rents Update for  ";
 	   
 	   public static String[] LeaseAgreementFileNames = {"REVISED_Lease_","Lease_","Leases_"};
 	   
@@ -25,7 +25,7 @@ public class AppConfig
 	   
 	   public static String leaseFetchQuery  = "Select Company, Building,leaseName from Automation.InitialRentsUpdate where Status ='Pending'";
 	   
-	   public static String getLeasesWithStatusforCurrentDay = "Select Company, Building, Leaseidnumber, LeaseName, StartDate, EndDate, MonthlyRent, MonthlyRentFromPW, PetRent, PetRentFromPW,Status, Notes from Automation.InitialRentsUpdate where Format(convert(datetime, CompletedDate, 101),'dd MM yyyy') = format(getdate(),'dd MM yyyy')";
+	   public static String getLeasesWithStatusforCurrentDay = "Select Company, Building, Leaseidnumber, LeaseName, StartDate, EndDate, MonthlyRent, MonthlyRentFromPW, PetRent, PetRentFromPW,Status, Notes from Automation.InitialRentsUpdate where Format(convert(datetime, CompletedDate, 101),'dd MM yyyy') = format(getdate()-1,'dd MM yyyy')";
 	   
 
 }
