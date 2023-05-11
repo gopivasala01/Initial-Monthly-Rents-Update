@@ -158,16 +158,18 @@ public class MailActivities
 			Row header = sheet1.createRow(0);
 			header.createCell(0).setCellValue("Company");
 			header.createCell(1).setCellValue("Building");
-			header.createCell(2).setCellValue("Lease ID Number");
-			header.createCell(3).setCellValue("Lease Name");
-			header.createCell(4).setCellValue("Start Date");
-			header.createCell(5).setCellValue("End Date");
-			header.createCell(6).setCellValue("Monthly Rent From Lease Agreement");
-			header.createCell(7).setCellValue("Monthly Rent From Property Ware");
-			header.createCell(8).setCellValue("Pet Rent From Lease Agreement");
-			header.createCell(9).setCellValue("Pet Rent From Property Ware");
-			header.createCell(10).setCellValue("Status");
-			header.createCell(11).setCellValue("Notes");
+			header.createCell(2).setCellValue("Third Party UnitID");
+			header.createCell(3).setCellValue("Lease ID Number");
+			header.createCell(4).setCellValue("Lease Name");
+			header.createCell(5).setCellValue("Lease Execution Date");
+			header.createCell(6).setCellValue("Start Date");
+			header.createCell(7).setCellValue("End Date");
+			header.createCell(8).setCellValue("Monthly Rent From Lease Agreement");
+			header.createCell(9).setCellValue("Monthly Rent From Property Ware");
+			header.createCell(10).setCellValue("Pet Rent From Lease Agreement");
+			header.createCell(11).setCellValue("Pet Rent From Property Ware");
+			header.createCell(12).setCellValue("Status");
+			header.createCell(13).setCellValue("Notes");
 			//int totalCurrentDayBuildings = RunnerClass.successBuildings.size()+RunnerClass.failedBuildings.size();
 			//sheet1.createRow(sheet1.getLastRowNum()+totalCurrentDayBuildings);
 			boolean getBuildings =  DataBase.getCompletedBuildingsList();
@@ -177,16 +179,18 @@ public class MailActivities
 				{
 					String company = RunnerClass.completedLeasesList[i][0];
 					String building = RunnerClass.completedLeasesList[i][1];
-					String leaseIDNumber = RunnerClass.completedLeasesList[i][2];
-					String leaseName = RunnerClass.completedLeasesList[i][3];
-					String startDate = RunnerClass.completedLeasesList[i][4];
-					String endDate = RunnerClass.completedLeasesList[i][5];
-					String monthlyRentFromLeaseAgreement = RunnerClass.completedLeasesList[i][6];
-					String monthlyRentFromPW = RunnerClass.completedLeasesList[i][7];
-					String petRentFromLeaseAgreement = RunnerClass.completedLeasesList[i][8];
-					String petRentFromPW = RunnerClass.completedLeasesList[i][9];
-					String status = RunnerClass.completedLeasesList[i][10];
-					String notes = RunnerClass.completedLeasesList[i][11];
+					String thirdPartyUnitID = RunnerClass.completedLeasesList[i][2];
+					String leaseIDNumber = RunnerClass.completedLeasesList[i][3];
+					String leaseName = RunnerClass.completedLeasesList[i][4];
+					String leaseExecutionDate = RunnerClass.completedLeasesList[i][5];
+					String startDate = RunnerClass.completedLeasesList[i][6];
+					String endDate = RunnerClass.completedLeasesList[i][7];
+					String monthlyRentFromLeaseAgreement = RunnerClass.completedLeasesList[i][8];
+					String monthlyRentFromPW = RunnerClass.completedLeasesList[i][9];
+					String petRentFromLeaseAgreement = RunnerClass.completedLeasesList[i][10];
+					String petRentFromPW = RunnerClass.completedLeasesList[i][11];
+					String status = RunnerClass.completedLeasesList[i][12];
+					String notes = RunnerClass.completedLeasesList[i][13];
 					
 					Row row = sheet1.createRow(1+i);
 					try
@@ -203,19 +207,36 @@ public class MailActivities
 					{building ="";};
 					try
 					{
-					row.createCell(2).setCellValue(leaseIDNumber);
+						row.createCell(2).setCellValue(thirdPartyUnitID);
+					}
+					catch(Exception e)
+					{
+						thirdPartyUnitID = "";
+					}
+					
+					try
+					{
+					row.createCell(3).setCellValue(leaseIDNumber);
 					}catch(Exception e) 
 					{leaseIDNumber = "";}
 					try
 					{
-					row.createCell(3).setCellValue(leaseName);
+					row.createCell(4).setCellValue(leaseName);
 					}catch(Exception e)
 					{
 						leaseName = "";
 					}
 					try
 					{
-					row.createCell(4).setCellValue(startDate);
+						row.createCell(5).setCellValue(leaseExecutionDate);
+					}
+					catch(Exception e)
+					{
+						leaseExecutionDate = "";
+					}
+					try
+					{
+					row.createCell(6).setCellValue(startDate);
 					}
 					catch(Exception e)
 					{
@@ -223,7 +244,7 @@ public class MailActivities
 					}
 					try
 					{
-					row.createCell(5).setCellValue(endDate);
+					row.createCell(7).setCellValue(endDate);
 					}
 					catch(Exception e)
 					{
@@ -231,7 +252,7 @@ public class MailActivities
 					}
 					try
 					{
-					row.createCell(6).setCellValue(monthlyRentFromLeaseAgreement);
+					row.createCell(8).setCellValue(monthlyRentFromLeaseAgreement);
 					}
 					catch(Exception e)
 					{
@@ -239,7 +260,7 @@ public class MailActivities
 					}
 					try
 					{
-					row.createCell(7).setCellValue(monthlyRentFromPW);
+					row.createCell(9).setCellValue(monthlyRentFromPW);
 					}
 					catch(Exception e)
 					{
@@ -247,7 +268,7 @@ public class MailActivities
 					}
 					try
 					{
-					row.createCell(8).setCellValue(petRentFromLeaseAgreement);
+					row.createCell(10).setCellValue(petRentFromLeaseAgreement);
 					}
 					catch(Exception e)
 					{
@@ -255,7 +276,7 @@ public class MailActivities
 					}
 					try
 					{
-					row.createCell(9).setCellValue(petRentFromPW);
+					row.createCell(11).setCellValue(petRentFromPW);
 					}
 					catch(Exception e)
 					{
@@ -263,7 +284,7 @@ public class MailActivities
 					}
 					try
 					{
-					row.createCell(10).setCellValue(status);
+					row.createCell(12).setCellValue(status);
 					}
 					catch(Exception e)
 					{
@@ -271,7 +292,7 @@ public class MailActivities
 					}
 					try
 					{
-					row.createCell(11).setCellValue(notes);
+					row.createCell(13).setCellValue(notes);
 					}
 					catch(Exception e)
 					{

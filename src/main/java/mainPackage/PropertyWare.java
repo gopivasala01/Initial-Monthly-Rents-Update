@@ -232,6 +232,18 @@ public class PropertyWare
 		//Empty RunnerClass.failedReason String now
 		RunnerClass.failedReason = "";
 		RunnerClass.leaseAgreementName = "";
+		
+		// Get Third Party Unit ID 
+		try
+		{
+			RunnerClass.thirdPartyUnitID = RunnerClass.driver.findElement(Locators.thirdPartyUnitID).getText();
+		}
+		catch(Exception e)
+		{
+			RunnerClass.thirdPartyUnitID = "";
+		}
+		System.out.println("Third Party Unitid = "+RunnerClass.thirdPartyUnitID);
+		
 		try
 		{
 		RunnerClass.js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
@@ -267,6 +279,17 @@ public class PropertyWare
 			RunnerClass.leaseIDNumber = "";
 		}
 		System.out.println("Lease ID Number = "+RunnerClass.leaseIDNumber);
+		
+		// Get Lease Execution Date 
+		try
+		{
+			RunnerClass.leaseExecutionDate = RunnerClass.driver.findElement(Locators.leaseExecutionDate).getText();
+		}
+		catch(Exception e)
+		{
+			RunnerClass.leaseExecutionDate = "";
+		}
+		System.out.println("Lease ID Number = "+RunnerClass.leaseExecutionDate);
 		
 		RunnerClass.driver.manage().timeouts().implicitlyWait(15,TimeUnit.SECONDS);
         RunnerClass.wait = new WebDriverWait(RunnerClass.driver, Duration.ofSeconds(15));
