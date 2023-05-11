@@ -40,7 +40,7 @@ public class RunnerClass
 		
 		//Get Leases
 		DataBase.getBuildingsList();
-		for(int i=0;i<5;i++)  //pendingLeases.length
+		for(int i=0;i<pendingLeases.length;i++)  //pendingLeases.length
 		{
 			  System.out.println("-------------------------------------------------------------");
 			  company = pendingLeases[i][0];
