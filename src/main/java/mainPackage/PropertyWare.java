@@ -101,7 +101,9 @@ public class PropertyWare
 		RunnerClass.wait = new WebDriverWait(RunnerClass.driver, Duration.ofSeconds(300));
 			try
 			{
+				if(RunnerClass.driver.findElement(Locators.searchingLoader).isDisplayed())
 			RunnerClass.wait.until(ExpectedConditions.invisibilityOf(RunnerClass.driver.findElement(Locators.searchingLoader)));
+				else {}
 			}
 			catch(Exception e)
 			{

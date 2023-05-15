@@ -131,9 +131,55 @@ public class PDFReader
 				return false;
 			    }
 			break;
+			
+		case "Florida":
+			String pdfFormatType_Florida = PDFReader.decidePDFFormat(market);
+			System.out.println("PDF Format Type = "+pdfFormatType_Florida);
+			if(pdfFormatType_Florida=="Format1")
+			{
+				if(PDFDataExtract.Florida_Format1.format1()==false)
+					return false;
+				PDFReader.verifyDates();
+				/*
+				if(PDFReader.verifyDates()==true)
+					return true;
+				else 
+				{
+					RunnerClass.failedReason = "Dates do not match";
+					return false;
+				}
+				*/
+						
+			}
+			
+			else 
+				if(pdfFormatType_Florida=="Format2")
+			     {
+				if(PDFDataExtract.Florida_Format2.format2()==false)
+					return false;
+				PDFReader.verifyDates();
+				/*
+				if(PDFReader.verifyDates()==true)
+					return true;
+				else
+					{ 
+					RunnerClass.failedReason = "Dates do not match";
+					return false;
+					}
+				*/
+		        }
+			    else 
+			   {
+				RunnerClass.failedReason = RunnerClass.failedReason+","+ "Wrong PDF Format";
+				return false;
+			    }
+			    
+			break;
 		}
         
         return true;
+        
+        
 	
 	}
     
@@ -178,6 +224,11 @@ public class PDFReader
 		case "Austin":
 		    format1Text  = PDFAppConfig.PDFFormatDecider.austin_Format1;
 		    format2Text  = PDFAppConfig.PDFFormatDecider.austin_Format2;
+		break;
+		
+		case "Florida":
+		    format1Text  = PDFAppConfig.PDFFormatDecider.Florida_Format1;
+		    format2Text  = PDFAppConfig.PDFFormatDecider.Florida_Format2;
 		break;
 		
 		case "California":

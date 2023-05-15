@@ -14,6 +14,7 @@ public class InsertDataInPropertyWare
 		
 		RunnerClass.driver.findElement(Locators.summaryEditButton).click();
 		
+		/*
 		//Base Rent
 		try
 		{
@@ -26,7 +27,7 @@ public class InsertDataInPropertyWare
 			RunnerClass.failedReason = "Issue -Base Rent";
 			RunnerClass.valuesUpdateStatus = "Review";
 		}
-		
+		*/
 		//Initial Monthly rent from PW
 		try
 		{
