@@ -505,6 +505,29 @@ public class PropertyWare
 			return false;
 		}
 	}
+	
+	public static void reLoginIntoSiteWhenItIsDownOrLoggedOut()
+	{
+		try
+		{
+			RunnerClass.wait = new WebDriverWait(RunnerClass.driver, Duration.ofSeconds(2));
+			RunnerClass.driver.manage().timeouts().implicitlyWait(2,TimeUnit.SECONDS);
+			if(RunnerClass.driver.findElement(Locators.PWSiteDownMessage).isDisplayed()||RunnerClass.driver.findElement(Locators.thisSiteCantBeReached).isDisplayed()||RunnerClass.driver.findElement(Locators.signIntoPropertyWare).isDisplayed())
+			{
+				RunnerClass.driver.navigate().to(AppConfig.URL);
+		        RunnerClass.driver.findElement(Locators.userName).sendKeys(AppConfig.username); 
+		        RunnerClass.driver.findElement(Locators.password).sendKeys(AppConfig.password);
+		        RunnerClass.driver.findElement(Locators.signMeIn).click();
+			}
+			RunnerClass.wait = new WebDriverWait(RunnerClass.driver, Duration.ofSeconds(10));
+			RunnerClass.driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+		}
+		catch(Exception e)
+		{
+			
+		}
+	}
+	
 
 
 }

@@ -43,10 +43,13 @@ public class Locators
     public static By cancelLease = By.xpath("(//*[@class='primaryButtons'])[2]/input[2]");
     
     public static By PWSiteDownMessage = By.xpath("//*[text()='This issue has been logged.']");
+    public static By signIntoPropertyWare = By.xpath("//*[text()='Sign in to propertyware']");
     public static By leaseIDNumber = By.xpath("//*[text()='ID Number']/following-sibling::td[1]");
     public static By baseRent = By.xpath("//*[text()='Base Rent']/following::input[1]");
     
     public static By thirdPartyUnitID = By.xpath("//*[contains(text(),'Third Party Unit ID')]/following::div[1]");
     public static By leaseExecutionDate = By.xpath("//*[contains(text(),'Lease Execution Date')]/following::div[1]");
+    
+    public static By thisSiteCantBeReached = By.xpath("//*[text()='This site can’t be reached']");
 
 }

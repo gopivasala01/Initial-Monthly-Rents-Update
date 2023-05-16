@@ -37,9 +37,11 @@ public class RunnerClass
 		
 		// Login to PropertyWare
 		PropertyWare.login();
-		
+		int w =0;
 		//Get Leases
-		DataBase.getBuildingsList();
+		DataBase.getBuildingsList(AppConfig.pendingLeasesQuery);
+		while(w<3)
+		{
 		for(int i=0;i<pendingLeases.length;i++)  //pendingLeases.length
 		{
 			  System.out.println("-------------------------------------------------------------");
@@ -63,6 +65,14 @@ public class RunnerClass
 				leaseIDNumber = "";
 				thirdPartyUnitID = "";
 				leaseExecutionDate = "";
+				
+				//Check if Site is logged off or This site cant be reached error message came
+				
+				try
+				{
+					
+				}
+				catch(Exception e) {}
 				try
 				{
 			  if(PropertyWare.searchBuilding(company, building)==false)
@@ -130,6 +140,13 @@ public class RunnerClass
 				{
 					continue;
 				}
+		}
+		DataBase.getBuildingsList(AppConfig.failedLeasesQuery);
+			System.out.println((w+1)+ " Time");
+			if(pendingLeases.length>0)
+			w++;
+			else break;
+		
 		}
 		
 		

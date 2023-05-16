@@ -9,7 +9,7 @@ public class AppConfig
 	   public static String password ="HomeRiver1#";
 	   
 	   public static String excelFileLocation = "E:\\Automation\\Initial Rents Update";
-	   public static String downloadFilePath = "C:\\SantoshMurthyP\\Lease Audit Automation";
+	   public static String downloadFilePath = "C:\\SantoshMurthyP\\Initial Rents Update";
 	   //Mail credentials
 	   public static String fromEmail = "bireports@beetlerim.com";
 	   public static String fromEmailPassword = "Welcome@123";
@@ -23,7 +23,11 @@ public class AppConfig
 	   
 	   public static String connectionUrl = "jdbc:sqlserver://azrsrv001.database.windows.net;databaseName=HomeRiverDB;user=service_sql02;password=xzqcoK7T;encrypt=true;trustServerCertificate=true;";
 	   
-	   public static String leaseFetchQuery  = "Select Company, Building,leaseName from Automation.InitialRentsUpdate where Status ='Pending'";
+	   public static String leaseFetchQuery  = "Select Company, Building,leaseName from Automation.InitialRentsUpdate where Status ='Pending' and Company ='Georgia'";
+	   
+	   public static String pendingLeasesQuery = "Select Company, Building,leaseName,Notes from Automation.InitialRentsUpdate where Status ='Pending' and Company ='Indiana'";
+	   
+	   public static String failedLeasesQuery = "Select Company, Building,leaseName from Automation.InitialRentsUpdate where Status ='Failed' and Company ='Indiana' and (Notes ='Building Not Found' or  Notes = ',Unable to Click Lease Onwer Name')"; 
 	   
 	   public static String getLeasesWithStatusforCurrentDay = "Select Company, Building,ThirdPartyUnitID, Leaseidnumber, LeaseName,leaseExecutionDate, StartDate, EndDate, MonthlyRent, MonthlyRentFromPW, PetRent, PetRentFromPW,Status, Notes from Automation.InitialRentsUpdate where Format(convert(datetime, CompletedDate, 101),'dd MM yyyy') = format(getdate(),'dd MM yyyy')";
 	   

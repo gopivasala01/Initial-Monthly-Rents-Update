@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 public class DataBase 
 {
-	public static boolean getBuildingsList()
+	public static boolean getBuildingsList(String pendingLeasesQuery)
 	{
 		try
 		{
@@ -17,7 +17,7 @@ public class DataBase
 		        ResultSet rs = null;
 		            //Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		            con = DriverManager.getConnection(AppConfig.connectionUrl);
-		            String SQL = AppConfig.leaseFetchQuery;
+		            String SQL = pendingLeasesQuery;
 		            stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 		           // stmt = con.createStatement();
 		            rs = stmt.executeQuery(SQL);
