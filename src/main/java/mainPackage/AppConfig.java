@@ -23,11 +23,11 @@ public class AppConfig
 	   
 	   public static String connectionUrl = "jdbc:sqlserver://azrsrv001.database.windows.net;databaseName=HomeRiverDB;user=service_sql02;password=xzqcoK7T;encrypt=true;trustServerCertificate=true;";
 	   
-	   public static String leaseFetchQuery  = "Select Company, Building,leaseName from Automation.InitialRentsUpdate where Status ='Pending' and Company ='Georgia'";
+	  // public static String leaseFetchQuery  = "Select Company, Building,leaseName from Automation.InitialRentsUpdate where Status ='Pending' and Company ='Georgia'";
 	   
-	   public static String pendingLeasesQuery = "Select Company, Building,leaseName,Notes from Automation.InitialRentsUpdate where Status ='Pending' and Company ='Indiana'";
+	   public static String pendingLeasesQuery = "Select Company, Building,leaseName,Notes from Automation.InitialRentsUpdate where Status ='Pending' and Company ='North Carolina'";
 	   
-	   public static String failedLeasesQuery = "Select Company, Building,leaseName from Automation.InitialRentsUpdate where Status ='Failed' and Company ='Indiana' and (Notes ='Building Not Found' or  Notes = ',Unable to Click Lease Onwer Name')"; 
+	   public static String failedLeasesQuery = "Select Company, Building,leaseName from Automation.InitialRentsUpdate where Status ='Failed' and Company ='North Carolina' and (Notes ='Building Not Found' or  Notes = ',Unable to Click Lease Onwer Name')"; 
 	   
 	   public static String getLeasesWithStatusforCurrentDay = "Select Company, Building,ThirdPartyUnitID, Leaseidnumber, LeaseName,leaseExecutionDate, StartDate, EndDate, MonthlyRent, MonthlyRentFromPW, PetRent, PetRentFromPW,Status, Notes from Automation.InitialRentsUpdate where Format(convert(datetime, CompletedDate, 101),'dd MM yyyy') = format(getdate(),'dd MM yyyy')";
 	   

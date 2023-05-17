@@ -70,7 +70,7 @@ public class RunnerClass
 				
 				try
 				{
-					
+					PropertyWare.reLoginIntoSiteWhenItIsDownOrLoggedOut();
 				}
 				catch(Exception e) {}
 				try
@@ -91,7 +91,7 @@ public class RunnerClass
 						 // MailActivities.sendANoteToDeveloper();
 						 // break;
 					  }
-					  String query = "Update Automation.InitialRentsUpdate Set Status='Failed',CompletedDate =GetDate(),Notes = 'Building Not Found' where building like '%"+building+"%' and LeaseName like '"+leaseName+"'";
+					  String query = "Update Automation.InitialRentsUpdate Set Status='Failed',CompletedDate =GetDate(),Notes = 'Building Not Found' where building like '%"+building+"%' and REPLACE(LeaseName,'''','') like '"+leaseName.replace("'", "")+"'";
 					  DataBase.updateTable(query);
 					  continue;
 				  }
@@ -105,14 +105,14 @@ public class RunnerClass
 					 // MailActivities.sendANoteToDeveloper();
 					 // break;
 				  }
-				  String query = "Update Automation.InitialRentsUpdate Set Status='Failed',CompletedDate =GetDate(),Notes = '"+failedReason+"',LeaseIDNumber = '"+RunnerClass.leaseIDNumber+"',thirdPartyUnitID ='"+thirdPartyUnitID+"',leaseExecutionDate='"+leaseExecutionDate+"' where building like '%"+building+"%' and LeaseName like '"+leaseName+"'";
+				  String query = "Update Automation.InitialRentsUpdate Set Status='Failed',CompletedDate =GetDate(),Notes = '"+failedReason+"',LeaseIDNumber = '"+RunnerClass.leaseIDNumber+"',thirdPartyUnitID ='"+thirdPartyUnitID+"',leaseExecutionDate='"+leaseExecutionDate+"' where building like '%"+building+"%' and REPLACE(LeaseName,'''','') like '"+leaseName.replace("'", "")+"'";
 				  DataBase.updateTable(query);
 				  continue;
 			  }
 			  
 			  if(PDFReader.readPDFPerMarket(company)==false)
 			  {
-				  String query = "Update Automation.InitialRentsUpdate Set Status='Failed',CompletedDate =GetDate(),Notes = '"+failedReason+"',LeaseIDNumber = '"+RunnerClass.leaseIDNumber+"' ,thirdPartyUnitID ='"+thirdPartyUnitID+"',leaseExecutionDate='"+leaseExecutionDate+"' where building like '%"+building+"%'  and LeaseName like '"+leaseName+"'";
+				  String query = "Update Automation.InitialRentsUpdate Set Status='Failed',CompletedDate =GetDate(),Notes = '"+failedReason+"',LeaseIDNumber = '"+RunnerClass.leaseIDNumber+"' ,thirdPartyUnitID ='"+thirdPartyUnitID+"',leaseExecutionDate='"+leaseExecutionDate+"' where building like '%"+building+"%'  and REPLACE(LeaseName,'''','') like '"+leaseName.replace("'", "")+"'";
 				  DataBase.updateTable(query);
 				  continue;
 			  }
@@ -125,13 +125,13 @@ public class RunnerClass
 					 // MailActivities.sendANoteToDeveloper();
 					 // break;
 				  }
-				  String query = "Update Automation.InitialRentsUpdate Set Status='Failed',CompletedDate =GetDate(),Notes = 'Could not Update Values',StartDate='"+PDFReader.startDate+"',EndDate='"+PDFReader.endDate+"',MonthlyRent='"+PDFReader.monthlyRent+"',MonthlyRentFromPW='"+PDFReader.monthlyRentFromPW+"',PetRent='"+PDFReader.petRent+"',PetRentFromPW = '"+PDFReader.petRentFromPW+"',LeaseIDNumber = '"+RunnerClass.leaseIDNumber+"' ,thirdPartyUnitID ='"+thirdPartyUnitID+"',leaseExecutionDate='"+leaseExecutionDate+"' where building like '%"+building+"%'  and LeaseName like '"+leaseName+"'";
+				  String query = "Update Automation.InitialRentsUpdate Set Status='Failed',CompletedDate =GetDate(),Notes = 'Could not Update Values',StartDate='"+PDFReader.startDate+"',EndDate='"+PDFReader.endDate+"',MonthlyRent='"+PDFReader.monthlyRent+"',MonthlyRentFromPW='"+PDFReader.monthlyRentFromPW+"',PetRent='"+PDFReader.petRent+"',PetRentFromPW = '"+PDFReader.petRentFromPW+"',LeaseIDNumber = '"+RunnerClass.leaseIDNumber+"' ,thirdPartyUnitID ='"+thirdPartyUnitID+"',leaseExecutionDate='"+leaseExecutionDate+"' where building like '%"+building+"%'  and REPLACE(LeaseName,'''','') like '"+leaseName.replace("'", "")+"'";
 				  DataBase.updateTable(query);
 				  continue;
 			  }
 			  else
 			  {
-				  String query = "Update Automation.InitialRentsUpdate Set Status='"+valuesUpdateStatus+"',CompletedDate =GetDate(),Notes = '"+failedReason+"',StartDate='"+PDFReader.startDate+"',EndDate='"+PDFReader.endDate+"',MonthlyRent='"+PDFReader.monthlyRent+"',MonthlyRentFromPW='"+PDFReader.monthlyRentFromPW+"',PetRent='"+PDFReader.petRent+"',PetRentFromPW = '"+PDFReader.petRentFromPW+"',LeaseIDNumber = '"+RunnerClass.leaseIDNumber+"' ,thirdPartyUnitID ='"+thirdPartyUnitID+"',leaseExecutionDate='"+leaseExecutionDate+"' where building like '%"+building+"%'  and LeaseName like '"+leaseName+"'";
+				  String query = "Update Automation.InitialRentsUpdate Set Status='"+valuesUpdateStatus+"',CompletedDate =GetDate(),Notes = '"+failedReason+"',StartDate='"+PDFReader.startDate+"',EndDate='"+PDFReader.endDate+"',MonthlyRent='"+PDFReader.monthlyRent+"',MonthlyRentFromPW='"+PDFReader.monthlyRentFromPW+"',PetRent='"+PDFReader.petRent+"',PetRentFromPW = '"+PDFReader.petRentFromPW+"',LeaseIDNumber = '"+RunnerClass.leaseIDNumber+"' ,thirdPartyUnitID ='"+thirdPartyUnitID+"',leaseExecutionDate='"+leaseExecutionDate+"' where building like '%"+building+"%'  and REPLACE(LeaseName,'''','') like '"+leaseName.replace("'", "")+"'";
 				  DataBase.updateTable(query);
 			  }
 			  
