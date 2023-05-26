@@ -2,7 +2,7 @@ package mainPackage;
 
 public class AppConfig 
 {
-	   public static boolean saveButtonOnAndOff= true;
+	   public static boolean saveButtonOnAndOff= false;
 	
 	   public static String URL ="https://app.propertyware.com/pw/login.jsp";
 	   public static String username ="mds0418@gmail.com";
@@ -25,11 +25,11 @@ public class AppConfig
 	   
 	  // public static String leaseFetchQuery  = "Select Company, Building,leaseName from Automation.InitialRentsUpdate where Status ='Pending' and Company ='Georgia'";
 	   
-	   public static String pendingLeasesQuery = "Select Company, Building,leaseName,Notes from Automation.InitialRentsUpdate where Status ='Pending' and Company ='Savannah'";
+	   public static String pendingLeasesQuery = "Select Company, building, leasename from Automation.InitialRentsUpdate where company in ('Florida','North Carolina') and status ='Pending'";
 	   
-	   public static String failedLeasesQuery = "Select Company, Building,leaseName from Automation.InitialRentsUpdate where Status ='Failed' and Company ='North Carolina' and (Notes ='Building Not Found' or  Notes = ',Unable to Click Lease Onwer Name')"; 
+	   public static String failedLeasesQuery = "Select Company, Building,leaseName from Automation.InitialRentsUpdate where Status ='Failed' and company in ('Florida','North Carolina') and (Notes ='Building Not Found' or  Notes = ',Unable to Click Lease Onwer Name')"; 
 	   
-	   public static String getLeasesWithStatusforCurrentDay = "Select Company, Building,ThirdPartyUnitID, Leaseidnumber, LeaseName,leaseExecutionDate, StartDate, EndDate, MonthlyRent, MonthlyRentFromPW, PetRent, PetRentFromPW,Status, Notes from Automation.InitialRentsUpdate where Format(convert(datetime, CompletedDate, 101),'dd MM yyyy') = format(getdate(),'dd MM yyyy')";
+	   public static String getLeasesWithStatusforCurrentDay = "Select Company, Building,ThirdPartyUnitID, Leaseidnumber, LeaseName,leaseExecutionDate, StartDate, EndDate, MonthlyRent, MonthlyRentFromPW, PetRent, PetRentFromPW,Status, Notes from Automation.InitialRentsUpdate where Format(convert(datetime, CompletedDate, 101),'dd MM yyyy') = format(getdate(),'dd MM yyyy') and company in ('Florida','North Carolina')";
 	   
 
 }
