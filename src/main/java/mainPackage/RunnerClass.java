@@ -34,7 +34,7 @@ public class RunnerClass
 	public static String[][] pendingLeases; 
 	public static void main(String args[]) throws Exception
 	{
-		/*
+		
 		// Login to PropertyWare
 		PropertyWare.login();
 		int w =0;
@@ -150,7 +150,7 @@ public class RunnerClass
 		
 		}
 		
-		*/
+		
 		//Create Excel file
 		 MailActivities.createExcelFileWithProcessedData();
 		
