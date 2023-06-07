@@ -9,7 +9,7 @@ public class AppConfig
 	   public static String password ="KRm#V39fecMDGg#";
 	   
 	   public static String excelFileLocation = "E:\\Automation\\Initial Rents Update";
-	   public static String downloadFilePath = "C:\\SantoshMurthyP\\Initial Rents Update - Branches\\Florida";
+	   public static String downloadFilePath = "C:\\SantoshMurthyP\\Initial Rents Update - Branches\\Georgia";
 	   //Mail credentials
 	   public static String fromEmail = "bireports@beetlerim.com";
 	   public static String fromEmailPassword = "Welcome@123";
@@ -25,11 +25,11 @@ public class AppConfig
 	   
 	  // public static String leaseFetchQuery  = "Select Company, Building,leaseName from Automation.InitialRentsUpdate where Status ='Pending' and Company ='Georgia'";
 	   
-	   public static String pendingLeasesQuery = "Select Company, building, leasename from Automation.InitialRentsUpdate where  Status='Pending' and company ='Florida' ";//company in ('Florida','North Carolina') and status ='Pending'";
+	   public static String pendingLeasesQuery = "Select Company, building, leasename from Automation.InitialRentsUpdate where  Status='Pending' and company ='Georgia' ";//company in ('Florida','North Carolina') and status ='Pending'";
 	   
-	   public static String failedLeasesQuery = "Select Company, Building,leaseName from Automation.InitialRentsUpdate where Status ='Failed'  and (Notes ='Building Not Found' or  Notes = ',Unable to Click Lease Onwer Name') and company ='Florida'";  //and company in ('Florida','North Carolina')
+	   public static String failedLeasesQuery = "Select Company, Building,leaseName from Automation.InitialRentsUpdate where Status ='Failed'  and (Notes ='Building Not Found' or  Notes = ',Unable to Click Lease Onwer Name') and company ='Georgia'";  //and company in ('Florida','North Carolina')
 	   
-	   public static String getLeasesWithStatusforCurrentDay = "Select Company, Building,ThirdPartyUnitID, Leaseidnumber, LeaseName,LeaseStatus,leaseExecutionDate, StartDate, EndDate, MonthlyRent, MonthlyRentFromPW, PetRent, PetRentFromPW,Status, Notes from Automation.InitialRentsUpdate and company ='Florida'";//where Format(convert(datetime, CompletedDate, 101),'dd MM yyyy') = format(getdate(),'dd MM yyyy') ";//and company in ('Florida','North Carolina')";
+	   public static String getLeasesWithStatusforCurrentDay = "Select Company, Building,ThirdPartyUnitID, Leaseidnumber, LeaseName,LeaseStatus,leaseExecutionDate, StartDate, EndDate, MonthlyRent, MonthlyRentFromPW, PetRent, PetRentFromPW,Status, Notes from Automation.InitialRentsUpdate and company ='Georgia'";//where Format(convert(datetime, CompletedDate, 101),'dd MM yyyy') = format(getdate(),'dd MM yyyy') ";//and company in ('Florida','North Carolina')";
 	   
 
 }
