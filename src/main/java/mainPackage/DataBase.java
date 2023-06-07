@@ -98,7 +98,7 @@ public class DataBase
 		            	rs.beforeFirst();
 		            }
 		            System.out.println("No of buildings with status = "+rows);
-		            RunnerClass.completedLeasesList = new String[rows][14];
+		            RunnerClass.completedLeasesList = new String[rows][15];
 		           int  i=0;
 		            while(rs.next())
 		            {
@@ -108,15 +108,16 @@ public class DataBase
 		                String  thirdPartyUnitID = (String) rs.getObject(3);
 		                String  leaseIDNumber = (String) rs.getObject(4);
 		                String  leaseName = (String) rs.getObject(5);
-		                String  leaseExecutionDate = (String) rs.getObject(6);
-		                String  startDate = (String) rs.getObject(7);
-		                String  endDate = (String) rs.getObject(8);
-		                String  monthlyRentFromLeaseAgreement = (String) rs.getObject(9);
-		                String  monthlyRentFromPW = (String) rs.getObject(10);
-		                String  petRentRentFromLeaseAgreement = (String) rs.getObject(11);
-		                String  petRentFromPW = (String) rs.getObject(12);
-		                String  Status = (String) rs.getObject(13);
-		                String  Notes = (String) rs.getObject(14);
+		                String  leaseStatus = (String) rs.getObject(6);
+		                String  leaseExecutionDate = (String) rs.getObject(7);
+		                String  startDate = (String) rs.getObject(8);
+		                String  endDate = (String) rs.getObject(9);
+		                String  monthlyRentFromLeaseAgreement = (String) rs.getObject(10);
+		                String  monthlyRentFromPW = (String) rs.getObject(11);
+		                String  petRentRentFromLeaseAgreement = (String) rs.getObject(12);
+		                String  petRentFromPW = (String) rs.getObject(13);
+		                String  Status = (String) rs.getObject(14);
+		                String  Notes = (String) rs.getObject(15);
 		                
 		               // System.out.println(company +" | "+building+" | "+targetRent+" | "+targetDeposit+" | "+listingAgent+" | "+status+" | "+notes);
 		    				//Company
@@ -129,24 +130,26 @@ public class DataBase
 		    				RunnerClass.completedLeasesList[i][3] = leaseIDNumber;
 		    				//Lease Name
 		    				RunnerClass.completedLeasesList[i][4] = leaseName;
+		    				
+		    				RunnerClass.completedLeasesList[i][5] = leaseStatus;
 		    				//Lease Name
-		    				RunnerClass.completedLeasesList[i][5] = leaseExecutionDate;
+		    				RunnerClass.completedLeasesList[i][6] = leaseExecutionDate;
 		    				//Target Deposit
-		    				RunnerClass.completedLeasesList[i][6] = startDate;
+		    				RunnerClass.completedLeasesList[i][7] = startDate;
 		    				//Listing Agent
-		    				RunnerClass.completedLeasesList[i][7] = endDate;
+		    				RunnerClass.completedLeasesList[i][8] = endDate;
 		    				//Status
-		    				RunnerClass.completedLeasesList[i][8] = monthlyRentFromLeaseAgreement;
+		    				RunnerClass.completedLeasesList[i][9] = monthlyRentFromLeaseAgreement;
 		    				//Notes
-		    				RunnerClass.completedLeasesList[i][9] = monthlyRentFromPW;
+		    				RunnerClass.completedLeasesList[i][10] = monthlyRentFromPW;
 		    				//Notes
-		    				RunnerClass.completedLeasesList[i][10] = petRentRentFromLeaseAgreement;
+		    				RunnerClass.completedLeasesList[i][11] = petRentRentFromLeaseAgreement;
 		    				//Notes
-		    				RunnerClass.completedLeasesList[i][11] = petRentFromPW;
+		    				RunnerClass.completedLeasesList[i][12] = petRentFromPW;
 		    				//Notes
-		    				RunnerClass.completedLeasesList[i][12] = Status;
+		    				RunnerClass.completedLeasesList[i][13] = Status;
 		    				//Notes
-		    				RunnerClass.completedLeasesList[i][13] = Notes;
+		    				RunnerClass.completedLeasesList[i][14] = Notes;
 		    				i++;
 		            }	
 		           // System.out.println("Total Pending Buildings  = " +RunnerClass.pendingBuildingList.length);
