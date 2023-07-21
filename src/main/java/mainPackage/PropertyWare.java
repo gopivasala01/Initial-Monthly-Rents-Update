@@ -324,7 +324,48 @@ public class PropertyWare
         RunnerClass.wait = new WebDriverWait(RunnerClass.driver, Duration.ofSeconds(3));
 		List<WebElement> documents = RunnerClass.driver.findElements(Locators.documentsList);
 		boolean checkLeaseAgreementAvailable = false;
-		 
+boolean checkModLeaseAgreementAvailable = false;
+		
+		String fileName2 = "";
+		for (int i = 0; i < documents.size(); i++) 
+		{
+		    for (int j = 0; j < AppConfig.LeaseAgreementFileNames.length; j++) 
+		    {
+		        if (documents.get(i).getText().startsWith(AppConfig.LeaseAgreementFileNamesMOD[j])) 
+		        {
+		            documents.get(i).click();
+		            fileName2 = documents.get(i).getText();
+		             RunnerClass.leaseAgreementName = fileName2;
+		            checkModLeaseAgreementAvailable = true;
+		            break;
+		        }
+		    }
+		    if (checkModLeaseAgreementAvailable) 
+		    {
+		        break;
+		    } 
+		}
+
+		if (!checkModLeaseAgreementAvailable) 
+		{
+		    System.out.println("MOD Lease Agreement is not available");
+		    RunnerClass.failedReason = RunnerClass.failedReason + ",Lease Agreement is not available";
+		    return false;
+		}
+
+		Thread.sleep(5000);
+		if (CommonMethods.isFileDownloaded(fileName2, ".pdf", 30).equals("")) 
+		{
+		    Thread.sleep(10000);
+		} else {
+		    // Handle the case when the file download is completed
+		}
+		
+		try {
+		 PDFModReader.PDFModReader1(fileName2, checkLeaseAgreementAvailable);
+		}
+		catch(Exception e) {}
+ 
 		String fileName = "";
 		for(int i =0;i<documents.size();i++)
 		{
@@ -371,7 +412,6 @@ public class PropertyWare
 			return false;
 		}
 	}
-	
 	
 	
 	public static void popUpHandling()

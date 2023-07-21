@@ -20,6 +20,7 @@ public class AppConfig
 	   public static String mailSubject = "Initial Rents Update for  ";
 	   
 	   public static String[] LeaseAgreementFileNames = {"REVISED_Lease_","Lease_","Leases_"};
+	   public static String [] LeaseAgreementFileNamesMOD = {"Lease_Modification", "Lease_MOD"};
 	   
 	   public static String connectionUrl = "jdbc:sqlserver://azrsrv001.database.windows.net;databaseName=HomeRiverDB;user=service_sql02;password=xzqcoK7T;encrypt=true;trustServerCertificate=true;";
 	   
