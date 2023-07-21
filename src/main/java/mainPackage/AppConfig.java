@@ -26,7 +26,7 @@ public class AppConfig
 	   
 	  // public static String leaseFetchQuery  = "Select Company, Building,leaseName from Automation.InitialRentsUpdate where Status ='Pending' and Company ='Georgia'";
 	   
-	   public static String pendingLeasesQuery = "Select Company, building, leasename from Automation.InitialRentsUpdate where  Status='Pending' company in ('Florida','North Carolina') and status ='Pending'";
+	   public static String pendingLeasesQuery = "Select Company, building, leasename from Automation.InitialRentsUpdate where  Status='Pending' company in ('Florida') and status ='Pending'";
 	   
 	   public static String failedLeasesQuery = "Select Company, Building,leaseName from Automation.InitialRentsUpdate where Status ='Failed'  and (Notes ='Building Not Found' or  Notes = ',Unable to Click Lease Onwer Name')";  //and company in ('Florida','North Carolina')
 	   
