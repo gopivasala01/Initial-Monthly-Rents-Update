@@ -43,7 +43,7 @@ public class RunnerClass
 		DataBase.getBuildingsList(AppConfig.pendingLeasesQuery);
 		while(w<3)
 		{
-		for(int i=0;i<pendingLeases.length;i++)  //pendingLeases.length
+		for(int i=0;i<10;i++)  //pendingLeases.length
 		{
 			  System.out.println("-------------------------------------------------------------");
 			  company = pendingLeases[i][0];
@@ -132,11 +132,13 @@ public class RunnerClass
 			  }
 			  else
 			  {
-				  if(RunnerClass.checkModLeaseAgreementAvailable) {
+				  if(RunnerClass.checkModLeaseAgreementAvailable) 
+				  {
 				  String query = "Update Automation.InitialRentsUpdate Set Status='"+valuesUpdateStatus+"',CompletedDate =GetDate(),Notes = '"+failedReason+"',StartDate='"+PDFReader.startDate+"',EndDate='"+PDFReader.endDate+"',MonthlyRent='"+PDFModReader.monthlyRent+"',MonthlyRentFromPW='"+PDFReader.monthlyRentFromPW+"',PetRent='"+PDFReader.petRent+"',PetRentFromPW = '"+PDFReader.petRentFromPW+"',LeaseIDNumber = '"+RunnerClass.leaseIDNumber+"' ,thirdPartyUnitID ='"+thirdPartyUnitID+"',leaseExecutionDate='"+leaseExecutionDate+"' where building like '%"+building+"%'  and REPLACE(LeaseName,'''','') like '"+leaseName.replace("'", "")+"'";
 				  DataBase.updateTable(query);
 				  }
-				  else {
+				  else 
+				  {
 					  String query = "Update Automation.InitialRentsUpdate Set Status='"+valuesUpdateStatus+"',CompletedDate =GetDate(),Notes = '"+failedReason+"',StartDate='"+PDFReader.startDate+"',EndDate='"+PDFReader.endDate+"',MonthlyRent='"+PDFReader.monthlyRent+"',MonthlyRentFromPW='"+PDFReader.monthlyRentFromPW+"',PetRent='"+PDFReader.petRent+"',PetRentFromPW = '"+PDFReader.petRentFromPW+"',LeaseIDNumber = '"+RunnerClass.leaseIDNumber+"' ,thirdPartyUnitID ='"+thirdPartyUnitID+"',leaseExecutionDate='"+leaseExecutionDate+"' where building like '%"+building+"%'  and REPLACE(LeaseName,'''','') like '"+leaseName.replace("'", "")+"'";
 					  DataBase.updateTable(query);
 				  }

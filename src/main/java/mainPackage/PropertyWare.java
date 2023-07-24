@@ -229,191 +229,141 @@ public class PropertyWare
 		return true;
 	}
 	
-	public static boolean downloadLeaseAgreement(String building, String ownerName) throws Exception
-	{
-		//Empty RunnerClass.failedReason String now
-		RunnerClass.failedReason = "";
-		RunnerClass.leaseAgreementName = "";
-		
-		// Get Third Party Unit ID 
-		try
-		{
-			RunnerClass.thirdPartyUnitID = RunnerClass.driver.findElement(Locators.thirdPartyUnitID).getText();
-		}
-		catch(Exception e)
-		{
-			RunnerClass.thirdPartyUnitID = "";
-		}
-		System.out.println("Third Party Unitid = "+RunnerClass.thirdPartyUnitID);
-		
-		try
-		{
-		RunnerClass.js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
-		Thread.sleep(2000);
-		RunnerClass.driver.findElement(Locators.leasesTab).click();
-		RunnerClass.driver.manage().timeouts().implicitlyWait(5,TimeUnit.SECONDS);
-        RunnerClass.wait = new WebDriverWait(RunnerClass.driver, Duration.ofSeconds(5));
-		try
-		{
-			//RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.viewLeaseButton)).build().perform();
-			//RunnerClass.driver.findElement(Locators.viewLeaseButton).click();
-		  RunnerClass.driver.findElement(By.partialLinkText(ownerName.trim())).click();
-		}
-		catch(Exception e)
-		{
-			
-			System.out.println("Unable to Click Lease Owner Name");
-		    RunnerClass.failedReason =  RunnerClass.failedReason+","+  "Unable to Click Lease Onwer Name";
-			return false;
-		}
-		try
-		{
-		//pop up
-		PropertyWare.popUpHandling();
-		
-		// Get LeaseIDNumber 
-		try
-		{
-			RunnerClass.leaseIDNumber = RunnerClass.driver.findElement(Locators.leaseIDNumber).getText();
-		}
-		catch(Exception e)
-		{
-			RunnerClass.leaseIDNumber = "";
-		}
-		System.out.println("Lease ID Number = "+RunnerClass.leaseIDNumber);
-		
-		// Get Lease Execution Date 
-		try
-		{
-			RunnerClass.leaseExecutionDate = RunnerClass.driver.findElement(Locators.leaseExecutionDate).getText();
-		}
-		catch(Exception e)
-		{
-			RunnerClass.leaseExecutionDate = "";
-		}
-		System.out.println("Lease ID Number = "+RunnerClass.leaseExecutionDate);
-		
-		RunnerClass.driver.manage().timeouts().implicitlyWait(15,TimeUnit.SECONDS);
-        RunnerClass.wait = new WebDriverWait(RunnerClass.driver, Duration.ofSeconds(15));
-		RunnerClass.js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
-		
-		RunnerClass.driver.findElement(Locators.notesAndDocs).click();
-		}
-		catch(Exception e)
-		{
-			System.out.println("Unable to Click Notes and Docs");
-		    RunnerClass.failedReason =  RunnerClass.failedReason+","+  "Unable to Click Notes and Docs";
-			return false;
-		}
-		/*
-		RunnerClass.driver.manage().timeouts().implicitlyWait(2,TimeUnit.SECONDS);
-        RunnerClass.wait = new WebDriverWait(RunnerClass.driver, Duration.ofSeconds(2));
-		//Check if there are no documents available
-		try
-		{
-			if(RunnerClass.driver.findElement(Locators.NoDocumentText).isDisplayed())
-			{
-				System.out.println("No Lease Agreements Available");
-			    RunnerClass.failedReason =  RunnerClass.failedReason+","+  "No Lease Agreements Available";
-				return false;
-			}
-		}
-		catch(Exception e) {}
-		*/
-		RunnerClass.driver.manage().timeouts().implicitlyWait(3,TimeUnit.SECONDS);
-        RunnerClass.wait = new WebDriverWait(RunnerClass.driver, Duration.ofSeconds(3));
-		List<WebElement> documents = RunnerClass.driver.findElements(Locators.documentsList);
-		boolean checkLeaseAgreementAvailable = false;
-boolean checkModLeaseAgreementAvailable = false;
-		
-		String fileName2 = "";
-		for (int i = 0; i < documents.size(); i++) 
-		{
-		    for (int j = 0; j < AppConfig.LeaseAgreementFileNames.length; j++) 
-		    {
-		        if (documents.get(i).getText().startsWith(AppConfig.LeaseAgreementFileNamesMOD[j])) 
-		        {
-		            documents.get(i).click();
-		            fileName2 = documents.get(i).getText();
-		             RunnerClass.leaseAgreementName = fileName2;
-		            checkModLeaseAgreementAvailable = true;
-		            break;
-		        }
-		    }
-		    if (checkModLeaseAgreementAvailable) 
-		    {
-		        break;
-		    } 
-		}
+	public static boolean downloadLeaseAgreement(String building, String ownerName) throws Exception {
+	    RunnerClass.failedReason = "";
+	    RunnerClass.leaseAgreementName = "";
+	    RunnerClass.thirdPartyUnitID = "";
 
-		if (!checkModLeaseAgreementAvailable) 
-		{
-		    System.out.println("MOD Lease Agreement is not available");
-		    RunnerClass.failedReason = RunnerClass.failedReason + ",Lease Agreement is not available";
-		    return false;
-		}
+	    List<WebElement> documents;
 
-		Thread.sleep(5000);
-		if (CommonMethods.isFileDownloaded(fileName2, ".pdf", 30).equals("")) 
-		{
-		    Thread.sleep(10000);
-		} else {
-		    // Handle the case when the file download is completed
-		}
-		
-		try {
-		 PDFModReader.PDFModReader1(fileName2, checkLeaseAgreementAvailable);
-		}
-		catch(Exception e) {}
- 
-		String fileName = "";
-		for(int i =0;i<documents.size();i++)
-		{
-			for(int j=0;j<AppConfig.LeaseAgreementFileNames.length;j++)
-			{
-			 if(documents.get(i).getText().startsWith(AppConfig.LeaseAgreementFileNames[j])&&!documents.get(i).getText().contains("Termination")&&!documents.get(i).getText().contains("_Mod")&&!documents.get(i).getText().contains("_MOD"))//&&documents.get(i).getText().contains(AppConfig.getCompanyCode(RunnerClass.company)))
-			 {
-			 	documents.get(i).click();
-			 	fileName = documents.get(i).getText();
-			 	RunnerClass.leaseAgreementName = fileName;
-				checkLeaseAgreementAvailable = true;
-				break;
-			 }
-			}
-			if(checkLeaseAgreementAvailable == true)
-				break;
-		}
-		
-		if(checkLeaseAgreementAvailable==false)
-		{
-			System.out.println("Lease Agreement is not available");
-		    RunnerClass.failedReason =  RunnerClass.failedReason+","+ "Lease Agreement is not available";
-			return false;
-		}
-		Thread.sleep(5000);
-		if(CommonMethods.isFileDownloaded(fileName, ".pdf", 30).equals(""))
-		Thread.sleep(10000);
-		else
-		{
-		}
-		/*
-		File file = CommonMethods.getLastModified();
-		
-		FluentWait<WebDriver> wait = new FluentWait<WebDriver>(RunnerClass.driver).withTimeout(Duration.ofSeconds(25)).pollingEvery(Duration.ofMillis(100));
-		wait.until( x -> file.exists());
-		Thread.sleep(5000);
-		*/
-		return true;
-		}
-		catch(Exception e)
-		{
-			System.out.println("Unable to download Lease Agreement");
-		    RunnerClass.failedReason =  RunnerClass.failedReason+","+"Unable to download Lease Agreement";
-			return false;
-		}
+	    try {
+	        RunnerClass.thirdPartyUnitID = RunnerClass.driver.findElement(Locators.thirdPartyUnitID).getText();
+	    } catch (Exception e) {
+	        RunnerClass.thirdPartyUnitID = "";
+	    }
+	    System.out.println("Third Party Unitid = " + RunnerClass.thirdPartyUnitID);
+
+	    try {
+	        RunnerClass.js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
+	        Thread.sleep(2000);
+	        RunnerClass.driver.findElement(Locators.leasesTab).click();
+	        RunnerClass.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+	        RunnerClass.wait = new WebDriverWait(RunnerClass.driver, Duration.ofSeconds(5));
+
+	        try {
+	            RunnerClass.driver.findElement(By.partialLinkText(ownerName.trim())).click();
+	        } catch (Exception e) {
+	            System.out.println("Unable to Click Lease Owner Name");
+	            RunnerClass.failedReason += "," + "Unable to Click Lease Owner Name";
+	            return false;
+	        }
+
+	        // pop up handling
+	        PropertyWare.popUpHandling();
+
+	        RunnerClass.leaseIDNumber = RunnerClass.driver.findElement(Locators.leaseIDNumber).getText();
+	        System.out.println("Lease ID Number = " + RunnerClass.leaseIDNumber);
+
+	        RunnerClass.leaseExecutionDate = RunnerClass.driver.findElement(Locators.leaseExecutionDate).getText();
+	        System.out.println("Lease Execution Date = " + RunnerClass.leaseExecutionDate);
+
+	        RunnerClass.driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+	        RunnerClass.wait = new WebDriverWait(RunnerClass.driver, Duration.ofSeconds(15));
+	        RunnerClass.js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
+
+	        RunnerClass.driver.findElement(Locators.notesAndDocs).click();
+
+	        RunnerClass.driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+	        RunnerClass.wait = new WebDriverWait(RunnerClass.driver, Duration.ofSeconds(3));
+
+	        documents = RunnerClass.driver.findElements(Locators.documentsList);
+	        boolean checkModLeaseAgreementAvailable = false;
+	        String fileName2 = "";
+
+	        for (int i = 0; i < documents.size(); i++)
+	        {
+	            for (int j = 0; j < AppConfig.LeaseAgreementFileNamesMOD.length; j++) 
+	            {
+	                if (documents.get(i).getText().startsWith(AppConfig.LeaseAgreementFileNamesMOD[j])) 
+	                {
+	                    documents.get(i).click();
+	                    fileName2 = documents.get(i).getText();
+	                    RunnerClass.leaseAgreementName = fileName2;
+	                    checkModLeaseAgreementAvailable = true;
+	                    break;
+	                }
+	            }
+	            if (checkModLeaseAgreementAvailable) 
+	            {
+	            	if (CommonMethods.getLastModified() != null)
+		            {
+			            Thread.sleep(10000);
+			        }
+	                break;
+	            }
+	             
+	        }
+	       
+	        PDFModReader.PDFModReader1(checkModLeaseAgreementAvailable);
+
+	        if (!checkModLeaseAgreementAvailable) 
+	        {
+	            System.out.println("MOD Lease Agreement is not available");
+	            RunnerClass.failedReason = RunnerClass.failedReason + "," + "Lease Agreement is not available";
+	        }
+
+	        Thread.sleep(5000);
+
+	        boolean checkLeaseAgreementAvailable = false;
+	        String fileName = "";
+
+	        for (int i = 0; i < documents.size(); i++) 
+	        {
+	            for (int j = 0; j < AppConfig.LeaseAgreementFileNames.length; j++) 
+	            {
+	                if (documents.get(i).getText().startsWith(AppConfig.LeaseAgreementFileNames[j]) && 
+	                    !documents.get(i).getText().contains("Termination") && 
+	                    !documents.get(i).getText().contains("_Mod") && 
+	                    !documents.get(i).getText().contains("_MOD")) 
+	                {
+	                    documents.get(i).click();
+	                    fileName = documents.get(i).getText();
+	                    RunnerClass.leaseAgreementName = fileName;
+	                    checkLeaseAgreementAvailable = true;
+	                    break;
+	                }
+	            }
+	            if (checkLeaseAgreementAvailable) 
+	            {
+	                break;
+	            }
+	        }
+
+	        if (!checkLeaseAgreementAvailable)
+	        {
+	            System.out.println("Lease Agreement is not available");
+	            RunnerClass.failedReason = RunnerClass.failedReason + "," + "Lease Agreement is not available";
+	            return false;
+	        }
+
+	        Thread.sleep(5000);
+
+	        if (CommonMethods.isFileDownloaded(fileName, ".pdf", 30).equals("")) 
+	        {
+	            Thread.sleep(10000);
+	        }
+
+	        return true;
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        System.out.println("Unable to download Lease Agreement");
+	        RunnerClass.failedReason = RunnerClass.failedReason + "," + "Unable to download Lease Agreement";
+	        return false;
+	    }
 	}
-	
-	
+
+
 	public static void popUpHandling()
 	{
 		RunnerClass.driver.manage().timeouts().implicitlyWait(3,TimeUnit.SECONDS);
