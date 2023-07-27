@@ -43,7 +43,7 @@ public class RunnerClass
 		DataBase.getBuildingsList(AppConfig.pendingLeasesQuery);
 		while(w<3)
 		{
-		for(int i=0;i<10;i++)  //pendingLeases.length
+		for(int i=0;i<pendingLeases;i++)  //pendingLeases.length
 		{
 			  System.out.println("-------------------------------------------------------------");
 			  company = pendingLeases[i][0];
