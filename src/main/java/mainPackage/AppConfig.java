@@ -15,7 +15,7 @@ public class AppConfig
 	   public static String fromEmailPassword = "Welcome@123";
 	   
 	   public static String toEmail = "gopi.v@beetlerim.com";
-	   public static String CCEmail = "gopi.v@beetlerim.com";
+	   public static String CCEmail = "santosh.p@beetlerim.com";
 	   
 	   public static String mailSubject = "Initial Rents Update for  ";
 	   
