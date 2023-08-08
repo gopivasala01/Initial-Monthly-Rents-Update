@@ -37,6 +37,10 @@ public class PDFModReader {
                     extractedRent = text.substring(text.indexOf(currentRentCharge) + currentRentCharge.length()).split(" ")[0].trim();
                 }
                 monthlyRent = extractedRent.replaceAll("[^0-9.]", "");
+                if (monthlyRent == null)
+                {
+                	monthlyRent = PDFReader.monthlyRent;
+                }
 
                 System.out.println("Monthly Rent ="+monthlyRent.trim());
                 
