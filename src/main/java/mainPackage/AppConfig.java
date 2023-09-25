@@ -27,7 +27,8 @@ public class AppConfig
 	  // public static String leaseFetchQuery  = "Select Company, Building,leaseName from Automation.InitialRentsUpdate where Status ='Pending' and Company ='Georgia'";
 	   
 
-	   public static String pendingLeasesQuery = "WITH CTE AS\r\n"
+	   public static String pendingLeasesQuery = "\r\n"
+	   		+ "WITH CTE AS\r\n"
 	   		+ "(\r\n"
 	   		+ "Select *, CAST(REPLACE(MonthlyRent,',','') as Decimal(18,2)) \r\n"
 	   		+ "- CAST(REPLACE(MonthlyRentFromPW,',','') as Decimal(18,2)) as Differene  from  [automation].[initialrentsupdate] \r\n"
@@ -40,7 +41,7 @@ public class AppConfig
 	   
 	  
 	   
-	   public static String failedLeasesQuery = "Select Company, Building,leaseName from Automation.InitialRentsUpdate where Status ='Failed'  and (Notes ='Building Not Found' or  Notes = ',Unable to Click Lease Onwer Name') and company in ('Florida','North Carolina')";
+	   public static String failedLeasesQuery = "Select Company, Building,leaseName from Automation.InitialRentsUpdate where Status ='Failed'  and (Notes ='Building Not Found' or  Notes = ',Unable to Click Lease Onwer Name') and company in ('Alabama')";
 	    
 	   public static String getLeasesWithStatusforCurrentDay = "Select Company, Building,ThirdPartyUnitID, Leaseidnumber, LeaseName,LeaseStatus,leaseExecutionDate, StartDate, EndDate, MonthlyRent, MonthlyRentFromPW, PetRent, PetRentFromPW,Status, Notes from Automation.InitialRentsUpdate ";//where Format(convert(datetime, CompletedDate, 101),'dd MM yyyy') = format(getdate(),'dd MM yyyy') ";//and company in ('Florida','North Carolina')";
 	   
