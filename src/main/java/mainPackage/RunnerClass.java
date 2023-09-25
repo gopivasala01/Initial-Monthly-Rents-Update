@@ -41,7 +41,7 @@ public class RunnerClass
 		PropertyWare.login();
 		int w =0;
 		//Get Leases
-		//DataBase.getBuildingsList(AppConfig.pendingLeasesQuery);
+		DataBase.getBuildingsList(AppConfig.pendingLeasesQuery);
 		while(w<3)
 		{
 
@@ -51,9 +51,9 @@ public class RunnerClass
 
 		{
 			  System.out.println("-------------------------------------------------------------");
-			  company =  "Alabama";// pendingLeases[i][0];
-			  building = "HATH255 - (255 Hathaway Lane)_1002883"; //pendingLeases[i][1];
-			  leaseName = "Phillips - Eaton - Procter";//pendingLeases[i][2];
+			  company =  pendingLeases[i][0];
+			  building = pendingLeases[i][1];
+			  leaseName = pendingLeases[i][2];
 			  
 			// System.out.println(" Record -- "+(i+1)+" -- "+company+" -- "+building+" -- "+leaseName);
 			  //Extract Abbreviation from building name
