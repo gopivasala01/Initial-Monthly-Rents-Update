@@ -34,7 +34,7 @@ public class AppConfig
 	   		+ "where  MonthlyRent <> '' and MonthlyRent is not null and MonthlyRentFromPW is not null and MonthlyRentFromPW <>'' and MonthlyRentFromPW <>'Error' and\r\n"
 	   		+ "CAST(REPLACE(MonthlyRent,',','') as Decimal(18,2)) >0.00 and CAST(REPLACE(MonthlyRentFromPW,',','') as Decimal(18,2))>0.00\r\n"
 	   		+ ")\r\n"
-	   		+ "Select * from CTE where Differene>100 and Status='Completed' and LeaseStatus Not in ('Dead Application','Terminated')  and company in ('Florida')";
+	   		+ "Select * from CTE where Differene>100 and Status='Completed' and LeaseStatus Not in ('Dead Application','Terminated')  and company in ('Alabama')";
 	   		
 
 	   
