@@ -9,7 +9,7 @@ public class AppConfig
 	   public static String password ="KRm#V39fecMDGg#";
 	   
 	   public static String excelFileLocation = "E:\\Automation\\Initial Rents Update";
-	   public static String downloadFilePath = "C:\\SantoshMurthyP\\Initial Rents Update";
+	   public static String downloadFilePath = "C:\\SantoshMurthyP\\Initial Rents Update - Branches\\Georgia";
 	   //Mail credentials
 	   public static String fromEmail = "bireports@beetlerim.com";
 	   public static String fromEmailPassword = "Welcome@123";
