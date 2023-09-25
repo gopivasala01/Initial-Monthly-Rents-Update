@@ -41,21 +41,21 @@ public class RunnerClass
 		PropertyWare.login();
 		int w =0;
 		//Get Leases
-		//DataBase.getBuildingsList(AppConfig.pendingLeasesQuery);
+		DataBase.getBuildingsList(AppConfig.pendingLeasesQuery);
 		while(w<3)
 		{
 
-		//for(int i=0;i<pendingLeases.length;i++)  //pendingLeases.length
+		
 
 		for(int i=0;i<pendingLeases.length;i++)  //pendingLeases.length
 
 		{
 			  System.out.println("-------------------------------------------------------------");
-			  company =  "Alabama";// pendingLeases[i][0];
-			  building = "HATH255 - (255 Hathaway Lane)_1002883"; //pendingLeases[i][1];
-			  leaseName = "Phillips - Eaton - Procter";//pendingLeases[i][2];
+			  company =  pendingLeases[i][0];
+			  building = pendingLeases[i][1];
+			  leaseName = pendingLeases[i][2];
 			  
-			// System.out.println(" Record -- "+(i+1)+" -- "+company+" -- "+building+" -- "+leaseName);
+			 System.out.println(" Record -- "+(i+1)+" -- "+company+" -- "+building+" -- "+leaseName);
 			  //Extract Abbreviation from building name
 			    completeBuildingAbbreviation = building;  //This will be used when Building not found in first attempt
 				building = building.split("-")[0].trim();
