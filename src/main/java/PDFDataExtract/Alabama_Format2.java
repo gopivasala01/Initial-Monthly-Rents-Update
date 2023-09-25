@@ -63,12 +63,42 @@ public class Alabama_Format2
 	    		PDFReader.monthlyRent = text.substring(text.indexOf(PDFAppConfig.Alabama_Format2.monthlyRent_Prior2)+PDFAppConfig.Alabama_Format2.monthlyRent_Prior2.length()).split(" ")[0].trim();
 	    	PDFReader.monthlyRent = PDFReader.monthlyRent.replaceAll("[^0-9.]", "");
 	    }
+	    
 	    catch(Exception e)
 	    {
 	    	PDFReader.monthlyRent = "Error";
 	    	e.printStackTrace();
 	    }
 	    System.out.println("Monthly Rent = "+PDFReader.monthlyRent);
+	    
+	    try
+	    {
+	    	PDFReader.monthlyRentTaxAmount = text.substring(text.indexOf(PDFAppConfig.Alabama_Format2.monthlyRentTaxAmount)+PDFAppConfig.Alabama_Format2.monthlyRentTaxAmount.length()).split(" ")[0].trim();
+	    	if(PDFReader.monthlyRentTaxAmount.trim().equalsIgnoreCase("0.00")||PDFReader.monthlyRentTaxAmount.trim().equalsIgnoreCase("N/A")||PDFReader.monthlyRentTaxAmount.trim().equalsIgnoreCase("n/a")||PDFReader.monthlyRentTaxAmount.trim().equalsIgnoreCase("na")||PDFReader.monthlyRentTaxAmount.trim().equalsIgnoreCase("")||PDFReader.monthlyRentTaxAmount.trim().equalsIgnoreCase(".*[a-zA-Z]+.*"))
+	    	{
+	    		PDFReader.monthlyRentTaxFlag = false;
+	    	}
+	    	else
+	    	{
+	    		
+	    		PDFReader.totalMonthlyRentWithTax = text.substring(text.indexOf(PDFAppConfig.Alabama_Format2.totalMonthlyRent2)+PDFAppConfig.Alabama_Format2.totalMonthlyRent2.length()).split(" ")[0].trim();
+	    		PDFReader.monthlyRentTaxFlag = true;
+	    	}
+	    }
+	    catch(Exception e)
+	    {
+	    	PDFReader.monthlyRentTaxFlag = false;
+	    	PDFReader.monthlyRentTaxAmount = "";
+	    }
+	    if(PDFReader.monthlyRentTaxFlag = true)
+	    {
+	    	PDFReader.monthlyRent = PDFReader.totalMonthlyRentWithTax;
+	    	System.out.println("Monthly Rent = "+PDFReader.monthlyRent);
+	    
+	    }
+	    System.out.println("Monthly Rent Tax Amount = "+PDFReader.monthlyRentTaxAmount);
+    	System.out.println("Monthly Rent Tax Amount = "+PDFReader.monthlyRentTaxFlag);
+    	System.out.println("Monthly Rent Tax Amount = "+PDFReader.totalMonthlyRentWithTax);
 	    if(text.contains(PDFAppConfig.Alabama_Format2.petAgreementAvailabilityCheck)==true)
 	    	PDFReader.petFlag =  true;
 	    else if(PDFReader.petFlag = text.contains(PDFAppConfig.Alabama_Format2.petAgreementAvailabilityCheck2)==true)

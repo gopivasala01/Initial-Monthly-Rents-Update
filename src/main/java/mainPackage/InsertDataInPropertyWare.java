@@ -7,7 +7,7 @@ public class InsertDataInPropertyWare
 	public static boolean updateValuesInPW()
 	{
 		RunnerClass.driver.navigate().refresh();
-		PropertyWare.popUpHandling();
+		PropertyWare.intermittentPopUp();
 		RunnerClass.js.executeScript("window.scrollBy(0,-document.body.scrollHeight)");
 		try
 		{
@@ -39,7 +39,7 @@ public class InsertDataInPropertyWare
 			RunnerClass.failedReason = "Issue -Initial Monthly Rent";
 			PDFReader.monthlyRentFromPW= "Error";
 		}
-		//Initial Monthly rent from PW
+		//Initial Pet rent from PW
 		try
 		{
 			RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.initialPetRentAmount)).build().perform();

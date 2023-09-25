@@ -51,5 +51,7 @@ public class Locators
     public static By leaseExecutionDate = By.xpath("//*[contains(text(),'Lease Execution Date')]/following::div[1]");
     
     public static By thisSiteCantBeReached = By.xpath("//*[text()='This site can’t be reached']");
+    public static By scheduledMaintanancePopUp = By.xpath("//*[text()='Scheduled Maintenance Notification']");
+    public static By scheduledMaintanancePopUpOkButton = By.id("alertDoNotShow");
 
 }

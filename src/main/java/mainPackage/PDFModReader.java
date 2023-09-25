@@ -37,15 +37,19 @@ public class PDFModReader {
                     extractedRent = text.substring(text.indexOf(currentRentCharge) + currentRentCharge.length()).split(" ")[0].trim();
                 }
                 monthlyRent = extractedRent.replaceAll("[^0-9.]", "");
+                if (monthlyRent == null)
+                {
+                	monthlyRent = PDFReader.monthlyRent;
+                }
 
-                System.out.println("Monthly Rent ="+monthlyRent.trim());
+                System.out.println("Monthly Rent ="+ monthlyRent.trim());
                 
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
-            System.out.println("Lease agreement not available. Unable to extract monthly rent.");
+           //System.out.println("Lease agreement not available. Unable to extract monthly rent.");
         }
     }
 }

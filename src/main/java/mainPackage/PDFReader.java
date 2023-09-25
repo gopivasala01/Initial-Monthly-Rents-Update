@@ -22,6 +22,10 @@ public class PDFReader
     public static String endDate = "";
     public static String currentDate = "";
     public static String text = "";
+    public static String RCDetails = "";
+	public static boolean monthlyRentTaxFlag = false;
+	public static String monthlyRentTaxAmount = "";
+	public static String totalMonthlyRentWithTax = "";
     
     public static boolean readPDFPerMarket(String market) throws Exception  
 	{
@@ -41,9 +45,9 @@ public class PDFReader
         switch(market)
 		{
 		case "Alabama":
-			String pdfFormatType_florida = PDFReader.decidePDFFormat(market);
-			System.out.println("PDF Format Type = "+pdfFormatType_florida);
-			if(pdfFormatType_florida=="Format1")
+			String pdfFormatType_alabama= PDFReader.decidePDFFormat(market);
+			System.out.println("PDF Format Type = "+pdfFormatType_alabama);
+			if(pdfFormatType_alabama=="Format1")
 			{
 				if(PDFDataExtract.Alabama_format1.format1()==false)
 					return false;
@@ -61,7 +65,7 @@ public class PDFReader
 			}
 			
 			else 
-				if(pdfFormatType_florida=="Format2")
+				if(pdfFormatType_alabama=="Format2")
 			     {
 				if(PDFDataExtract.Alabama_Format2.format2()==false)
 					return false;

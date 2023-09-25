@@ -16,5 +16,9 @@ public class Arkansas_Format2
 	
 	public static String petRent_Prior = "Tenant will pay Landlord monthly pet rent in the amount of $".toLowerCase();
 	public static String petRent_Prior2 = "as additional rent, a monthly fee of $".toLowerCase();
+	
+	public static String monthlyRentTaxAmount = "plus the additional amount of $";
+	public static String totalMonthlyRent = "for a total monthly Rent of $";
+	public static String totalMonthlyRent2 = "assessed, for a total of $";
 
 }

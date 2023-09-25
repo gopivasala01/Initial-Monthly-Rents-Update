@@ -20,5 +20,9 @@ public class Arkansas_Format1
 	
 	public static String AB_petRent1_Prior = "(2) Tenant will pay Landlord monthly pet rent in the amount of $".toLowerCase();;
 	public static String AB_petRent1_After = " for each full month during this Lease.  Prorated Pet Rent: ".toLowerCase();;
+	
+	public static String monthlyRentTaxAmount = "plus the additional amount of $";
+	public static String totalMonthlyRent = "for a total monthly Rent of $";
+	public static String totalMonthlyRent2 = "assessed, for a total of $";
 
 }

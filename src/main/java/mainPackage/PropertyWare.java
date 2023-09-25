@@ -90,7 +90,7 @@ public class PropertyWare
 		RunnerClass.wait = new WebDriverWait(RunnerClass.driver, Duration.ofSeconds(10));
 		RunnerClass.driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
 		//Thread.sleep(3000);
-		PropertyWare.popUpHandling();
+		PropertyWare.intermittentPopUp();
 		RunnerClass.js.executeScript("window.scrollBy(0, -document.body.scrollHeight)");
 		RunnerClass.driver.navigate().refresh();
 		try
@@ -111,7 +111,7 @@ public class PropertyWare
 				{
 				RunnerClass.driver.manage().timeouts().implicitlyWait(200,TimeUnit.SECONDS);
 				RunnerClass.driver.navigate().refresh();
-				PropertyWare.popUpHandling();
+				PropertyWare.intermittentPopUp();
 				RunnerClass.driver.findElement(Locators.dashboardsTab).click();
 				RunnerClass.driver.findElement(Locators.searchbox).clear();
 				RunnerClass.driver.findElement(Locators.searchbox).sendKeys(building);
@@ -130,7 +130,7 @@ public class PropertyWare
 					building = building.substring(building.lastIndexOf(".")+1);
 					RunnerClass.driver.manage().timeouts().implicitlyWait(200,TimeUnit.SECONDS);
 					RunnerClass.driver.navigate().refresh();
-					PropertyWare.popUpHandling();
+					PropertyWare.intermittentPopUp();
 					RunnerClass.driver.findElement(Locators.dashboardsTab).click();
 					RunnerClass.driver.findElement(Locators.searchbox).clear();
 					RunnerClass.driver.findElement(Locators.searchbox).sendKeys(building);
@@ -259,7 +259,7 @@ public class PropertyWare
 	        }
 
 	        // pop up handling
-	        PropertyWare.popUpHandling();
+	        PropertyWare.intermittentPopUp();
 
 	        RunnerClass.leaseIDNumber = RunnerClass.driver.findElement(Locators.leaseIDNumber).getText();
 	        System.out.println("Lease ID Number = " + RunnerClass.leaseIDNumber);
@@ -324,7 +324,8 @@ public class PropertyWare
 	                if (documents.get(i).getText().startsWith(AppConfig.LeaseAgreementFileNames[j]) && 
 	                    !documents.get(i).getText().contains("Termination") && 
 	                    !documents.get(i).getText().contains("_Mod") && 
-	                    !documents.get(i).getText().contains("_MOD")) 
+	                    !documents.get(i).getText().contains("_MOD")&&
+	                    !documents.get(i).getText().contains("Lease Renewal")) 
 	                {
 	                    documents.get(i).click();
 	                    fileName = documents.get(i).getText();
@@ -346,7 +347,7 @@ public class PropertyWare
 	            return false;
 	        }
 
-	        Thread.sleep(5000);
+	        Thread.sleep(10000);
 
 	        if (CommonMethods.isFileDownloaded(fileName, ".pdf", 30).equals("")) 
 	        {
@@ -364,19 +365,33 @@ public class PropertyWare
 	}
 
 
-	public static void popUpHandling()
-	{
-		RunnerClass.driver.manage().timeouts().implicitlyWait(3,TimeUnit.SECONDS);
-		try
-		{
-			if(RunnerClass.driver.findElement(Locators.popUpAfterClickingLeaseName).isDisplayed())
-			{
-				RunnerClass.driver.findElement(Locators.popupClose).click();
-			}
-		}
-		catch(Exception e) {};
-		RunnerClass.driver.manage().timeouts().implicitlyWait(150,TimeUnit.SECONDS);
-	}
+	public static void intermittentPopUp() {
+        try {
+            RunnerClass.driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+            RunnerClass.wait = new WebDriverWait(RunnerClass.driver, Duration.ofSeconds(1));
+            
+            try {
+                if (RunnerClass.driver.findElement(Locators.popUpAfterClickingLeaseName).isDisplayed()) {
+                    RunnerClass.driver.findElement(Locators.popupClose).click();
+                }
+            } catch (Exception e) {}
+            
+            try {
+                if (RunnerClass.driver.findElement(Locators.scheduledMaintanancePopUp).isDisplayed()) {
+                    RunnerClass.driver.findElement(Locators.scheduledMaintanancePopUpOkButton).click();
+                }
+            } catch (Exception e) {}
+            
+            try {
+                if (RunnerClass.driver.findElement(Locators.scheduledMaintanancePopUpOkButton).isDisplayed()) {
+                    RunnerClass.driver.findElement(Locators.scheduledMaintanancePopUpOkButton).click();
+                }
+            } catch (Exception e) {}
+            
+            RunnerClass.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+            RunnerClass.wait = new WebDriverWait(RunnerClass.driver, Duration.ofSeconds(5));
+        } catch (Exception e) {}
+    }
 
 	public static boolean searchingBuildingWithDifferentText(String building)
 	{
@@ -384,7 +399,7 @@ public class PropertyWare
 		{
 		RunnerClass.driver.manage().timeouts().implicitlyWait(200,TimeUnit.SECONDS);
 		 RunnerClass.driver.navigate().refresh();
-		 PropertyWare.popUpHandling();
+		 PropertyWare.intermittentPopUp();
 		 RunnerClass.driver.findElement(Locators.dashboardsTab).click();
 		 RunnerClass.driver.findElement(Locators.searchbox).clear();
 		 RunnerClass.driver.findElement(Locators.searchbox).sendKeys(building);
@@ -416,7 +431,7 @@ public class PropertyWare
 		{
 		RunnerClass.driver.manage().timeouts().implicitlyWait(200,TimeUnit.SECONDS);
 		 RunnerClass.driver.navigate().refresh();
-		 PropertyWare.popUpHandling();
+		 PropertyWare.intermittentPopUp();
 		 RunnerClass.driver.findElement(Locators.dashboardsTab).click();
 		 RunnerClass.driver.findElement(Locators.searchbox).clear();
 		 RunnerClass.driver.findElement(Locators.searchbox).sendKeys(leaseName);
