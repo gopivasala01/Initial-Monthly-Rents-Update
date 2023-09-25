@@ -55,7 +55,7 @@ public class RunnerClass
 			  building = pendingLeases[i][1];
 			  leaseName = pendingLeases[i][2];
 			  
-			// System.out.println(" Record -- "+(i+1)+" -- "+company+" -- "+building+" -- "+leaseName);
+			System.out.println(" Record -- "+(i+1)+" -- "+company+" -- "+building+" -- "+leaseName);
 			  //Extract Abbreviation from building name
 			    completeBuildingAbbreviation = building;  //This will be used when Building not found in first attempt
 				building = building.split("-")[0].trim();
