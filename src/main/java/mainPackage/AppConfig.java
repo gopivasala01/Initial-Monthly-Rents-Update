@@ -27,14 +27,7 @@ public class AppConfig
 	  // public static String leaseFetchQuery  = "Select Company, Building,leaseName from Automation.InitialRentsUpdate where Status ='Pending' and Company ='Georgia'";
 	   
 
-	   public static String pendingLeasesQuery = "WITH CTE AS\r\n"
-	   		+ "(\r\n"
-	   		+ "Select *, CAST(REPLACE(MonthlyRent,',','') as Decimal(18,2)) \r\n"
-	   		+ "- CAST(REPLACE(MonthlyRentFromPW,',','') as Decimal(18,2)) as Differene  from  [automation].[initialrentsupdate] \r\n"
-	   		+ "where  MonthlyRent <> '' and MonthlyRent is not null and MonthlyRentFromPW is not null and MonthlyRentFromPW <>'' and MonthlyRentFromPW <>'Error' and\r\n"
-	   		+ "CAST(REPLACE(MonthlyRent,',','') as Decimal(18,2)) >0.00 and CAST(REPLACE(MonthlyRentFromPW,',','') as Decimal(18,2))>0.00\r\n"
-	   		+ ")\r\n"
-	   		+ "Select Company, Building, LeaseName from CTE where Differene>100 and Status='Completed' and LeaseStatus Not in ('Dead Application','Terminated')  and company in ('Alabama')";
+	   public static String pendingLeasesQuery = " Select Company, Building, LeaseName, MonthlyRent, MonthlyRentFromPW, Status from [automation].[initialrentsupdate] where Status='Pending' and LeaseStatus Not in ('Dead Application','Terminated')  and company in ('Alabama')";
 	   		
 
 	   
