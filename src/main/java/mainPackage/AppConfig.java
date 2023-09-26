@@ -34,7 +34,7 @@ public class AppConfig
 	   		+ "where  MonthlyRent <> '' and MonthlyRent is not null and MonthlyRentFromPW is not null and MonthlyRentFromPW <>'' and MonthlyRentFromPW <>'Error' and\r\n"
 	   		+ "CAST(REPLACE(MonthlyRent,',','') as Decimal(18,2)) >0.00 and CAST(REPLACE(MonthlyRentFromPW,',','') as Decimal(18,2))>0.00\r\n"
 	   		+ ")\r\n"
-	   		+ "Select Company, Building, LeaseName, MonthlyRent, MonthlyRentFromPW from CTE where Differene>100 and Status='Completed' and LeaseStatus Not in ('Dead Application','Terminated')  and company in (''South Carolina', 'Savannah'')";
+	   		+ "Select Company, Building, LeaseName, MonthlyRent, MonthlyRentFromPW from CTE where Differene>100 and Status='Completed' and LeaseStatus Not in ('Dead Application','Terminated')  and company in ('South Carolina', 'Savannah')";
 	   
 	   public static String failedLeasesQuery = "Select Company, Building,leaseName from Automation.InitialRentsUpdate where Status ='Failed'  and (Notes ='Building Not Found' or  Notes = ',Unable to Click Lease Onwer Name') and company in ('South Carolina', 'Savannah')";	   
 	   public static String getLeasesWithStatusforCurrentDay = "Select Company, Building,ThirdPartyUnitID, Leaseidnumber, LeaseName,LeaseStatus,leaseExecutionDate, StartDate, EndDate, MonthlyRent, MonthlyRentFromPW, PetRent, PetRentFromPW,Status, Notes from Automation.InitialRentsUpdate ";//where Format(convert(datetime, CompletedDate, 101),'dd MM yyyy') = format(getdate(),'dd MM yyyy') ";//and company in ('Florida','North Carolina')";
