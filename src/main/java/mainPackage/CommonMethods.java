@@ -20,22 +20,23 @@ public class CommonMethods
 	public static String currentTime;
 	
 
-	public static File getLastModified() throws Exception 
-	{
-	    File directory = new File(AppConfig.downloadFilePath);
-	    File[] files = directory.listFiles(File::isFile);
-	    File chosenFile = null;
-	    
-	    for (int i = 0; i < files.length; i++) 
-	    {
-	        if (files[i].getName().equals(RunnerClass.leaseAgreementName)) 
-	        {
-	            chosenFile = files[i];
-	        }
-	    }
-	    
-	    return chosenFile;
-	}
+	public static File getLastModified() throws Exception {
+        File directory = new File(AppConfig.downloadFilePath);
+        File[] files = directory.listFiles(File::isFile);
+        long lastModifiedTime = Long.MIN_VALUE;
+        File chosenFile = null;
+
+        if (files != null) {
+            for (File file : files) {
+                if (file.lastModified() > lastModifiedTime) {
+                    chosenFile = file;
+                    lastModifiedTime = file.lastModified();
+                }
+            }
+        }
+
+        return chosenFile;
+    }
 
 	
 	public static String isFileDownloaded(String fileText, String fileExtension, int timeOut) 
