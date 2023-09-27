@@ -1,5 +1,4 @@
- 
- package mainPackage;
+package mainPackage;
 
 import java.io.File;
 
@@ -44,18 +43,14 @@ public class RunnerClass
 		DataBase.getBuildingsList(AppConfig.pendingLeasesQuery);
 		while(w<3)
 		{
-
-		//for(int i=0;i<pendingLeases.length;i++)  //pendingLeases.length
-
 		for(int i=0;i<pendingLeases.length;i++)  //pendingLeases.length
-
 		{
 			  System.out.println("-------------------------------------------------------------");
-			  company =  pendingLeases[i][0];
+			  company = pendingLeases[i][0];
 			  building = pendingLeases[i][1];
 			  leaseName = pendingLeases[i][2];
 			  
-			System.out.println(" Record -- "+(i+1)+" -- "+company+" -- "+building+" -- "+leaseName);
+			  System.out.println(" Record -- "+(i+1)+" -- "+company+" -- "+building+" -- "+leaseName);
 			  //Extract Abbreviation from building name
 			    completeBuildingAbbreviation = building;  //This will be used when Building not found in first attempt
 				building = building.split("-")[0].trim();
@@ -144,10 +139,10 @@ public class RunnerClass
 				  }
 				  else 
 				  {
-					  String query = "Update Automation.InitialRentsUpdate Set Status='"+valuesUpdateStatus+"',CompletedDate =GetDate(),Notes = 'NULL',StartDate='"+PDFReader.startDate+"',EndDate='"+PDFReader.endDate+"',MonthlyRent='"+PDFReader.monthlyRent+"',MonthlyRentFromPW='"+PDFReader.monthlyRentFromPW+"',PetRent='"+PDFReader.petRent+"',PetRentFromPW = '"+PDFReader.petRentFromPW+"',LeaseIDNumber = '"+RunnerClass.leaseIDNumber+"' ,thirdPartyUnitID ='"+thirdPartyUnitID+"',leaseExecutionDate='"+leaseExecutionDate+"' where building like '%"+building+"%'  and REPLACE(LeaseName,'''','') like '"+leaseName.replace("'", "")+"'";
+					  String query = "Update Automation.InitialRentsUpdate Set Status='"+valuesUpdateStatus+"',CompletedDate =GetDate(),Notes = '"+failedReason+"',StartDate='"+PDFReader.startDate+"',EndDate='"+PDFReader.endDate+"',MonthlyRent='"+PDFReader.monthlyRent+"',MonthlyRentFromPW='"+PDFReader.monthlyRentFromPW+"',PetRent='"+PDFReader.petRent+"',PetRentFromPW = '"+PDFReader.petRentFromPW+"',LeaseIDNumber = '"+RunnerClass.leaseIDNumber+"' ,thirdPartyUnitID ='"+thirdPartyUnitID+"',leaseExecutionDate='"+leaseExecutionDate+"' where building like '%"+building+"%'  and REPLACE(LeaseName,'''','') like '"+leaseName.replace("'", "")+"'";
 					  DataBase.updateTable(query);
 				  }
-			  }            
+			  }
 			  
 				}
 				catch(Exception e)
