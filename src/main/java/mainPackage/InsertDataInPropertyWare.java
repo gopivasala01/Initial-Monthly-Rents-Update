@@ -33,6 +33,7 @@ public class InsertDataInPropertyWare
 		{
 			RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.initialMonthlyRent)).build().perform();
 		    PDFReader.monthlyRentFromPW= RunnerClass.driver.findElement(Locators.initialMonthlyRent).getAttribute("Value").replace("$", "").trim();
+		    System.out.println(PDFReader.monthlyRentFromPW);
 		}
 		catch(Exception e)
 		{
@@ -44,6 +45,7 @@ public class InsertDataInPropertyWare
 		{
 			RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.initialPetRentAmount)).build().perform();
 		    PDFReader.petRentFromPW= RunnerClass.driver.findElement(Locators.initialPetRentAmount).getAttribute("Value").replace("$", "").trim();
+		    System.out.println(PDFReader.petRentFromPW);
 		}
 		catch(Exception e)
 		{
