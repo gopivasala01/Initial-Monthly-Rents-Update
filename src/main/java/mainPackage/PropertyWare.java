@@ -309,7 +309,7 @@ public class PropertyWare
 	        if (!checkModLeaseAgreementAvailable) 
 	        {
 	            System.out.println("MOD Lease Agreement is not available");
-	            RunnerClass.failedReason = RunnerClass.failedReason + "," + "Lease Agreement is not available";
+	            
 	        }
 
 	        Thread.sleep(5000);
