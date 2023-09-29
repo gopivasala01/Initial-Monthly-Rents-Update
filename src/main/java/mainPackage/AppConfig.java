@@ -27,7 +27,7 @@ public class AppConfig
 	  // public static String leaseFetchQuery  = "Select Company, Building,leaseName from Automation.InitialRentsUpdate where Status ='Pending' and Company ='Georgia'";
 	   
 
-	   public static String pendingLeasesQuery = "Select Company, Building, LeaseName, Status,	Notes, StartDate, EndDate, MonthlyRent, PetRent, MonthlyRentFromPW, PetRentFromPW from Automation.InitialRentsUpdate Where  LeaseStatus Not in ('Dead Application','Terminated')and company = 'North Carolina'";
+	   public static String pendingLeasesQuery = "Select Company, Building, LeaseName, Status, Notes, StartDate, EndDate, MonthlyRent, PetRent, MonthlyRentFromPW, PetRentFromPW from Automation.InitialRentsUpdate Where Status ='Completed' and Notes= ',Lease Agreement is not available' and LeaseStatus Not in ('Dead Application','Terminated')and company = 'North Carolina'";
 	   		
 
 	   
